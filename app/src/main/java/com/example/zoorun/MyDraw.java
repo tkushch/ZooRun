@@ -10,11 +10,10 @@ public class MyDraw extends View {
     private Hero hero;
     private Ground ground;
     private Paint paint = new Paint();
-    boolean isFirst;
+    private boolean isFirst;
 
 
-
-    MyDraw(Context context, AttributeSet attrs) {
+    public MyDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
         isFirst = true;
 
@@ -23,19 +22,23 @@ public class MyDraw extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         int RX = getWidth() / 1000;
         int RY = getHeight() / 1000;
-        if (isFirst){
-            fill(canvas, RX, RY);
+        int COUNT_OF_LINES = 9;
+        int DISTANCE = 15;
+        int LEVEL = 3; // скорость земли в единицах "RX"
+        int LINES_LENGTH = getHeight() / COUNT_OF_LINES - DISTANCE;
+        if (isFirst) {
+            fill(canvas, RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE);
         }
-
-
 
 
         invalidate();
     }
 
-    protected void fill(Canvas canvas, int RX, int RY){
-        
+    public void fill(Canvas canvas, int RX, int RY, int LINES_LENGTH, int COUNT_OF_LINES, int DISTANCE) {
+        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, 3 * RY);
+        hero = new Hero();
     }
 }

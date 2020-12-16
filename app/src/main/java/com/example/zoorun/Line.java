@@ -1,14 +1,21 @@
 package com.example.zoorun;
 
+import android.graphics.Color;
+
 public class Line {
     private int color;
-
     private int x;
     private int y;
 
     public Line(int x, int y) {
         this.x = x;
         this.y = y;
+        this.color = Color.WHITE;
+    }
+    public Line(int x, int y, int color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
     }
 
     public int getX() {
@@ -34,4 +41,9 @@ public class Line {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public void move(){
+
+    }
+
 }

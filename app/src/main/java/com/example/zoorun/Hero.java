@@ -1,11 +1,20 @@
 package com.example.zoorun;
+
 import android.graphics.Bitmap;
 
-public class Hero {
-    private int x, y, vx, vy;
-    Bitmap image;
+public class Hero implements Movable, Drawable {
+    private Bitmap image;
 
-    Hero(){
+    public Hero() {
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void draw() {
 
     }
 }
