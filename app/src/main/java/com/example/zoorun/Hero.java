@@ -9,7 +9,7 @@ import static android.graphics.Color.rgb;
 public class Hero implements Movable, Drawable {
     private float size;
     private float halfsize;
-    private Bitmap image;
+    //private Bitmap image;
 
     public Hero(float size) {
         this.size = size;
@@ -18,6 +18,7 @@ public class Hero implements Movable, Drawable {
 
     @Override
     public void move() {
+
 
     }
 

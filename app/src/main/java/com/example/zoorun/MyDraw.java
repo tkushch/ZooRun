@@ -25,10 +25,10 @@ public class MyDraw extends View {
         super.onDraw(canvas);
         float RX = getWidth() / 1000f; // условные единицы экрана 1000*1000
         float RY = getHeight() / 1000f; // условные единицы экрана 1000*1000
-        int COUNT_OF_LINES = 15; // количество линий в одном столбце
-        float DISTANCE = RY * 30f; // расстояние между линиями
-        float LEVEL = RY * 3f; // скорость земли
-        float LINES_LENGTH = getHeight() / COUNT_OF_LINES - DISTANCE; // длина каждой линии
+        int COUNT_OF_LINES = 1000; // максимальное количество линий в ряду
+        float DISTANCE = 3f; // расстояние между абсциссами линий
+        float LEVEL = 3f; // скорость земли
+        float LINES_LENGTH = DISTANCE * 3f; // длина каждой линии
         if (isFirst) {
             fill(canvas, RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE);
         }
