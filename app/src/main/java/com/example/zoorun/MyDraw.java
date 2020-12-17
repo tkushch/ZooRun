@@ -23,22 +23,22 @@ public class MyDraw extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int RX = getWidth() / 1000;
-        int RY = getHeight() / 1000;
-        int COUNT_OF_LINES = 9;
-        int DISTANCE = 15;
-        int LEVEL = 3; // скорость земли в единицах "RX"
-        int LINES_LENGTH = getHeight() / COUNT_OF_LINES - DISTANCE;
+        float RX = getWidth() / 1000f; // условные единицы экрана 1000*1000
+        float RY = getHeight() / 1000f; // условные единицы экрана 1000*1000
+        int COUNT_OF_LINES = 15; // количество линий в одном столбце
+        float DISTANCE = RY * 30f; // расстояние между линиями
+        float LEVEL = RY * 3f; // скорость земли
+        float LINES_LENGTH = getHeight() / COUNT_OF_LINES - DISTANCE; // длина каждой линии
         if (isFirst) {
             fill(canvas, RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE);
         }
-
-
+        ground.draw(canvas, paint, RX, RY);
+        hero.draw(canvas, paint, RX, RY);
         invalidate();
     }
 
-    public void fill(Canvas canvas, int RX, int RY, int LINES_LENGTH, int COUNT_OF_LINES, int DISTANCE) {
-        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, 3 * RY);
-        hero = new Hero();
+    public void fill(Canvas canvas, float RX, float RY, float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE) {
+        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, RY * 3f);
+        hero = new Hero(250f);
     }
 }
