@@ -4,26 +4,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/mainlayo">
 
-    <LinearLayout
-        android:id="@+id/LinearLayout1"
-        android:layout_height="match_parent"
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="72dp"
+        android:layout_height="62dp"
+        android:background="#aaaaaacc"
+        android:textColor="@android:color/white"
+        android:text="||"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:gravity="center_horizontal" />
+
+    <FrameLayout
+        android:id="@+id/frame_Layout"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.example.zoorun.MyDraw
             android:id="@+id/MyDraw"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            />
+            android:layout_height="match_parent"/>
 
 
+    </FrameLayout>
 
-    </LinearLayout>
+    <!--
+
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

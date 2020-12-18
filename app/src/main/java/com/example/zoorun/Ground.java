@@ -12,56 +12,95 @@ public class Ground implements Movable, Drawable {
     private Line[] left_lines;
     private Line[] right_lines;
     private float lines_length;
-    private int count_of_left_lines;
-    private int count_of_right_lines;
+    private int count_of_lines;
     private float distance;
+    private float period;
+    private float movement = 0f;
 
     public Ground(float RX, float RY, float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE, float v) {
         this.lines_length = LINES_LENGTH;
-        this.count_of_left_lines = COUNT_OF_LINES;
-        this.count_of_right_lines = COUNT_OF_LINES;
+        this.count_of_lines = COUNT_OF_LINES;
         this.distance = DISTANCE;
         this.v = v;
 
-        left_lines = new Line[COUNT_OF_LINES];
-        right_lines = new Line[COUNT_OF_LINES];
+        left_lines = new Line[count_of_lines];
+        right_lines = new Line[count_of_lines];
 
-        this.count_of_left_lines = 0; //узнаем сколько поместится
+        this.count_of_lines = 0; //узнаем сколько поместится
 
-        float x = 7800f / 17f;
+        float x_left = 499f; // точка O (abscissa - 1f)
+        float x_right = 501f; // точка O (abscissa + 1f)
+
         for (int i = 0; i < COUNT_OF_LINES; i++) {
-            if (x > 800f / 3f) { // abscissa of point "E"
-                this.count_of_left_lines += 1;
-                left_lines[i] = new Line(x, left_EH(x), x - LINES_LENGTH, left_EH(x - LINES_LENGTH));
-                x -= (LINES_LENGTH + DISTANCE);
+
+            //корректировки из-за перспективы
+            float length0 = lines_length * K(x_left);
+            float distance0 = distance * K(x_right);
+            //
+            if (i == 0) {
+                period = length0 + distance0;
+            }
+
+            if (x_left > 800f / 3f) { // abscissa of point "E"
+                this.count_of_lines += 1;
+                left_lines[i] = new Line(x_left, left_EH(x_left), x_left - length0, left_EH(x_left - length0));
+                x_left -= (length0 + distance0);
+            }
+            if (x_right < 2200f / 3f) { // abscissa of point "F"
+                right_lines[i] = new Line(x_right, right_FL(x_right), x_right + length0, right_FL(x_right + length0));
+                x_right += (length0 + distance0);
             }
         }
-        this.count_of_right_lines = 0;
-        x = 9200f / 17f;
-        for (int i = 0; i < COUNT_OF_LINES; i++) {
-            if (x < 2200f / 3f) { // abscissa of point "F"
-                this.count_of_right_lines += 1;
-                right_lines[i] = new Line(x, right_FL(x), x + LINES_LENGTH, right_FL(x + LINES_LENGTH));
-                x += (LINES_LENGTH + DISTANCE);
-            }
-        }
-
-
     }
 
     public void move() {
+        float x_left, x_right;
+        if (movement > period * 4.3f) {
+            movement = 0;
+            x_left = 499f;
+            x_right = 501f;
+        } else {
+            x_left = left_lines[0].getX0() - v;
+            x_right = right_lines[0].getX0() + v;
+            movement += v;
+        }
+
+        for (int i = 0; i < count_of_lines; i++) {
+
+            float length0 = lines_length * K(x_left);
+            float distance0 = distance * K(x_right);
+
+
+            left_lines[i].setX0(x_left);
+            left_lines[i].setY0(left_EH(x_left));
+            left_lines[i].setX1(x_left - length0);
+            left_lines[i].setY1(left_EH(x_left - length0));
+            x_left -= (length0 + distance0);
+
+            right_lines[i].setX0(x_right);
+            right_lines[i].setY0(right_FL(x_right));
+            right_lines[i].setX1(x_right + length0);
+            right_lines[i].setY1(right_FL(x_right + length0));
+            x_right += (length0 + distance0);
+        }
+
+
     }
 
 
     @Override
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.BLACK);
+        canvas.drawRect(RX * 0f, RY * 0f, RX * 1000f, RY * 1000f, paint);
+
+        paint.setColor(Color.YELLOW);
+        paint.setStrokeWidth(10f * RX);
         //AB
         canvas.drawLine(RX * 0f, RY * 750f, RX * (3500f / 9f), RY * 0f, paint);
         //DC
         canvas.drawLine(RX * 1000f, RY * 750f, RX * (5500f / 9f), RY * 0f, paint);
 
-        for (int i = 0; i < count_of_left_lines; i++) {
+        for (int i = 0; i < count_of_lines; i++) {
             // draw left lines
             float x0 = left_lines[i].getX0();
             float y0 = left_lines[i].getY0();
@@ -70,7 +109,7 @@ public class Ground implements Movable, Drawable {
 
             canvas.drawLine(RX * x0, RY * y0, RX * x1, RY * y1, paint);
         }
-        for (int i = 0; i < count_of_right_lines; i++) {
+        for (int i = 0; i < count_of_lines; i++) {
             // draw right lines
             float x0 = right_lines[i].getX0();
             float y0 = right_lines[i].getY0();
@@ -91,8 +130,15 @@ public class Ground implements Movable, Drawable {
     public float right_FL(float x) {
         return (255f / 49f * x - 138000f / 49f);
     }
-}
 
+
+    public float K(float x0) {
+        //корректировки из-за перспективы
+        float k = 0.005f;
+        return (k * (Math.abs(x0 - 500f)));
+        //
+    }
+}
 
 //old
 
@@ -119,4 +165,71 @@ public class Ground implements Movable, Drawable {
         }
 
     }
+
+
+
+    for (int i = 0; i < count_of_lines; i++) {
+
+            float x0_left = left_lines[i].getX0();
+
+            float length0 = lines_length * K(x0_left);
+            float distance0 = distance * K(x0_left);
+
+            //зацикливание :
+            if (x0_left < 800f / 3f) {  // abscissa of point "E"
+                x0_left = 499f; // точка О (abscissa - 1f)
+            }
+
+
+
+
+
+
+
+            //left lines moving
+            float x0_left = left_lines[i].getX0();
+
+            //сдвиг
+            x0_left -= v;
+
+            //зацикливание :
+            if (x0_left < 800f / 3f) {  // abscissa of point "E"
+                x0_left = 499f; // точка О (abscissa - 1f)
+            }
+
+            float length0 = lines_length * K(x0_left);
+
+            float y0_left = left_EH(x0_left);
+            float x1_left = x0_left - length0;
+            float y1_left = left_EH(x1_left);
+
+            left_lines[i].setX0(x0_left);
+            left_lines[i].setY0(y0_left);
+            left_lines[i].setX1(x1_left);
+            left_lines[i].setY1(y1_left);
+
+            //right lines moving
+
+            float x0_right = right_lines[i].getX0();
+
+            //сдвиг
+            x0_right += v;
+
+            //зацикливание :
+            if (x0_right > 2200f / 3f) { // abscissa of point "F"
+                x0_right = 501f; // точка O (abscissa + 1f)
+            }
+
+            length0 = lines_length * K(x0_right);
+
+            float y0_right = right_FL(x0_right);
+            float x1_right = x0_right + length0;
+            float y1_right = right_FL(x1_right);
+
+            right_lines[i].setX0(x0_right);
+            right_lines[i].setY0(y0_right);
+            right_lines[i].setX1(x1_right);
+            right_lines[i].setY1(y1_right);
+
+        }
     */

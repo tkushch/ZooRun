@@ -11,6 +11,7 @@ public class MyDraw extends View {
     private Ground ground;
     private Paint paint = new Paint();
     private boolean isFirst;
+    private boolean pause = true;
 
 
     public MyDraw(Context context, AttributeSet attrs) {
@@ -27,18 +28,31 @@ public class MyDraw extends View {
         float RY = getHeight() / 1000f; // условные единицы экрана 1000*1000
         int COUNT_OF_LINES = 1000; // максимальное количество линий в ряду
         float DISTANCE = 3f; // расстояние между абсциссами линий
-        float LEVEL = 3f; // скорость земли
+        float LEVEL = 0.0055f; // скорость земли    (от 0.003 до 0.008)
         float LINES_LENGTH = DISTANCE * 3f; // длина каждой линии
         if (isFirst) {
-            fill(canvas, RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE);
+            isFirst = false;
+            fill(canvas, RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
         }
         ground.draw(canvas, paint, RX, RY);
         hero.draw(canvas, paint, RX, RY);
+        if (!pause) {
+            ground.move();
+            hero.move();
+        }
         invalidate();
     }
 
-    public void fill(Canvas canvas, float RX, float RY, float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE) {
-        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, RY * 3f);
-        hero = new Hero(250f);
+    public void fill(Canvas canvas, float RX, float RY, float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE, float LEVEL) {
+        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE,  LEVEL);
+        hero = new Hero(220f);
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 public class StartActivity extends Activity implements View.OnClickListener {
     Button start_button;
+    Button extrab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.start);
         start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(this);
+        extrab = new Button(this);
+
     }
 
 
