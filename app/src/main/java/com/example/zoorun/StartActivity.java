@@ -22,7 +22,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.start);
         start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(this);

@@ -96,9 +96,9 @@ public class Ground implements Movable, Drawable {
         paint.setColor(Color.YELLOW);
         paint.setStrokeWidth(10f * RX);
         //AB
-        canvas.drawLine(RX * 0f, RY * 750f, RX * (3500f / 9f), RY * 0f, paint);
+        canvas.drawLine(RX * (-3500f/27f), RY * 1000f, RX * (3500f / 9f), RY * 0f, paint);
         //DC
-        canvas.drawLine(RX * 1000f, RY * 750f, RX * (5500f / 9f), RY * 0f, paint);
+        canvas.drawLine(RX * (30500f/27f), RY * 1000f, RX * (5500f / 9f), RY * 0f, paint);
 
         for (int i = 0; i < count_of_lines; i++) {
             // draw left lines
