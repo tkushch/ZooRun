@@ -9,12 +9,12 @@ import static android.graphics.Color.rgb;
 public class Hero implements Drawable {
     private float radius_x = 90f, radius_y = 52.5f;
     private float x = 500f, y = 835f; // центр
+    private float y_up = y - 10f, y_down = y + 10f;
     private float left_way_x = KN_line(y), center_way_x = x, right_way_x = PM_line(y);
 
-    /*private boolean move_side_flag = false;
-    private int step_in_moving = 0;
-
-     */
+    private boolean move_side_flag = false;
+    private int delay = 10;
+    private int step_delay = 0;
     private boolean inSwipe = false;
     private boolean start_of_swipe;
     private float swipe_v; // swipe velocity (by level)
@@ -26,34 +26,36 @@ public class Hero implements Drawable {
         swipe_v = level * 5 * 1000f;
     }
 
-    /*
+
     public void jump() {
-        if (step_in_moving < 8) {
-            step_in_moving++;
+        if (step_delay < delay) {
+            step_delay++;
         } else {
             if (move_side_flag) {
-                y += 20f;
+                y = y_up;
             } else {
-                y -= 20f;
+                y = y_down;
             }
-            step_in_moving = 0;
+            step_delay = 0;
             move_side_flag = !move_side_flag;
         }
     }
 
-     */
 
     public void swipe_move() {
         if (start_of_swipe) {
             start_of_swipe = false;
+            step_delay = 0;
+            if (y != y_up) {
+                move_side_flag = !move_side_flag;
+                y = y_up;
+            }
+
         }
         x += swipe_v;
-        if (swipe_v < 0f && x < swipe_target) {
+        if ((swipe_v < 0f && x < swipe_target) || (swipe_v > 0f && x > swipe_target)) {
             x = swipe_target;
-            inSwipe = false;
-        }
-        else if (swipe_v > 0f && x > swipe_target) {
-            x = swipe_target;
+            way = way_by_target(swipe_target);
             inSwipe = false;
         }
     }
@@ -71,13 +73,11 @@ public class Hero implements Drawable {
             inSwipe = true;
             if (x == left_way_x) {
                 inSwipe = false;
-            }
-            else if (x == center_way_x) {
+            } else if (x == center_way_x) {
                 swipe_target = left_way_x;
                 swipe_v = -(Math.abs(swipe_v));
                 start_of_swipe = true;
-            }
-            else if (x == right_way_x) {
+            } else if (x == right_way_x) {
                 swipe_target = center_way_x;
                 swipe_v = -(Math.abs(swipe_v));
                 start_of_swipe = true;
@@ -91,13 +91,11 @@ public class Hero implements Drawable {
             inSwipe = true;
             if (x == right_way_x) {
                 inSwipe = false;
-            }
-            else if (x == center_way_x) {
+            } else if (x == center_way_x) {
                 swipe_target = right_way_x;
                 swipe_v = (Math.abs(swipe_v));
                 start_of_swipe = true;
-            }
-            else if (x == left_way_x) {
+            } else if (x == left_way_x) {
                 swipe_target = center_way_x;
                 swipe_v = (Math.abs(swipe_v));
                 start_of_swipe = true;
@@ -115,5 +113,17 @@ public class Hero implements Drawable {
 
     public boolean isInSwipe() {
         return inSwipe;
+    }
+
+    public int way_by_target(float swipe_target) {
+        int way = 1;
+        if (swipe_target == left_way_x) {
+            way = 0;
+        } else if (swipe_target == center_way_x) {
+            way = 1;
+        } else if (swipe_target == right_way_x) {
+            way = 2;
+        }
+        return way;
     }
 }

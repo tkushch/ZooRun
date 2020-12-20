@@ -9,6 +9,7 @@ import android.view.View;
 public class MyDraw extends View {
     private Hero hero;
     private Ground ground;
+    private Barrier[] barriers;
     private Paint paint = new Paint();
     private boolean isFirst;
     private boolean pause = true;
@@ -34,23 +35,38 @@ public class MyDraw extends View {
 
         if (isFirst) {
             isFirst = false;
-            fill(canvas);
+            fill();
         }
         ground.draw(canvas, paint, RX, RY);
         hero.draw(canvas, paint, RX, RY);
+        for (int i = 0; i < 3; i++){
+            barriers[i].draw(canvas, paint, RX, RY);
+        }
+
         if (!pause) {
             ground.move();
-            //hero.jump();           ----------------возможно удалим функцию jump-----
+
+            for (int i = 0; i < 3; i++){
+                barriers[i].move();
+            }
+
             if (hero.isInSwipe()) {
                 hero.swipe_move();
+            }
+            else{
+                hero.jump();
             }
         }
         invalidate();
     }
 
-    public void fill(Canvas canvas) {
-        ground = new Ground(RX, RY, LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
+    public void fill() {
+        ground = new Ground(LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
         hero = new Hero(LEVEL);
+        barriers = new Barrier[3];
+        barriers[0] = new Barrier(0, LEVEL);
+        barriers[1] = new Barrier(1, LEVEL);
+        barriers[2] = new Barrier(2, LEVEL);
     }
 
     public boolean isPause() {

@@ -17,11 +17,11 @@ public class Ground implements Movable, Drawable {
     private float period;
     private float movement = 0f;
 
-    public Ground(float RX, float RY, float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE, float v) {
+    public Ground(float LINES_LENGTH, int COUNT_OF_LINES, float DISTANCE, float LEVEL) {
         this.lines_length = LINES_LENGTH;
         this.count_of_lines = COUNT_OF_LINES;
         this.distance = DISTANCE;
-        this.v = v;
+        this.v = LEVEL;
 
         left_lines = new Line[count_of_lines];
         right_lines = new Line[count_of_lines];
