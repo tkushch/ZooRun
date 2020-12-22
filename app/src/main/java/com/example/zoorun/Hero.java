@@ -7,10 +7,11 @@ import android.graphics.Paint;
 import static android.graphics.Color.rgb;
 
 public class Hero implements Drawable {
-    private float radius_x = 90f, radius_y = 52.5f;
+    private float radius_x = 90f, radius_y = 52f;
     private float x = 500f, y = 835f; // центр
     private float y_up = y - 10f, y_down = y + 10f;
     private float left_way_x = KN_line(y), center_way_x = x, right_way_x = PM_line(y);
+    private int health = 3;
 
     private boolean move_side_flag = false;
     private int delay = 10;
@@ -125,5 +126,37 @@ public class Hero implements Drawable {
             way = 2;
         }
         return way;
+    }
+
+    public float getRadius_y() {
+        return radius_y;
+    }
+
+    public void setRadius_y(float radius_y) {
+        this.radius_y = radius_y;
+    }
+
+    public float getY_up() {
+        return y_up;
+    }
+
+    public void setY_up(float y_up) {
+        this.y_up = y_up;
+    }
+
+    public float getY_down() {
+        return y_down;
+    }
+
+    public int getWay() {
+        return way;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

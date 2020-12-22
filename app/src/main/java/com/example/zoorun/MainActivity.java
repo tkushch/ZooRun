@@ -23,9 +23,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private MyDraw md;
     private boolean swipe = false;
     private float[] swipe_start_coords = {0f, 0f};
-    //ВРЕМЕННО
-    private TextView tv;
-    //
 
 
     @Override
@@ -34,10 +31,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen); //не помогло
         setContentView(R.layout.main);
         md = findViewById(R.id.MyDraw);
-
-        //ВРЕМЕННО
-        tv = findViewById(R.id.textView);
-        //
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(this);
 
@@ -52,12 +45,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (v == run) {
             frameLayout.removeView(run);
             md.setPause(false);
-            tv.setText("run"); //ВРЕМЕННО
         }
         if (v == pause && !md.isPause()) {
             md.setPause(true);
             to_pause_screen();
-            tv.setText("pause"); //ВРЕМЕННО
         }
     }
 
@@ -117,13 +108,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     if ((x1 - x0) < -40f * md.getRX()) {
                         md.swipe_left();
-                        tv.setText("swipe left");
-                        //ВРЕМЕННО
                     }
                     if ((x1 - x0) > 40f * md.getRX()) {
                         md.swipe_right();
-                        tv.setText("swipe right");
-                        //ВРЕМЕННО
                     }
 
                 }
@@ -134,4 +121,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!md.isPause()) {
+            to_pause_screen();
+        }
+    }
 }
