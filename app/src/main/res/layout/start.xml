@@ -10,12 +10,13 @@
     android:orientation="vertical">
 
     <Button
+        android:textSize="30dp"
         android:textColor="#ffffff"
         android:background="#555555"
         android:id="@+id/start_button"
         android:layout_width="234dp"
         android:layout_height="68dp"
-        android:text="Старт"
+        android:text="Играть"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

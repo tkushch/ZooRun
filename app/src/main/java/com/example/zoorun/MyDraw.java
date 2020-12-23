@@ -2,12 +2,19 @@ package com.example.zoorun;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import static java.lang.Float.max;
+
 
 public class MyDraw extends View {
+    private boolean OFF;
+    private OnCollisionListener onCollisionListener;
+    private Collision collision;
+    private boolean was_collision = false;
     private Hero hero;
     private Ground ground;
     private Barrier[] barriers;
@@ -54,7 +61,7 @@ public class MyDraw extends View {
         }
 
         //move
-        if (!pause) {
+        if (!pause && !was_collision) {
             ground.move();
 
             if (hero.isInSwipe()) {
@@ -68,14 +75,21 @@ public class MyDraw extends View {
                 if (b != null) {
                     if (b.isRelevance()) {
                         b.move();
-                        check_crash(b, i);
+                        check_collision(b, i);
                     }
                 }
             }
             generate_barriers();
+        } else if (was_collision) {
+            collision.draw(canvas, paint, RX, RY);
+            collision.move();
+            if (collision.getR() > 1000f) {
+                onCollisionListener.onCollision();
+            }
         }
-
-        invalidate(); // ------------------------------------------------ invalidate() here --------
+        if (!OFF) {
+            invalidate();
+        }
     }
 
     public void fill() {
@@ -163,10 +177,49 @@ public class MyDraw extends View {
         return (Integer.parseInt(Character.toString(String.valueOf(Math.random()).charAt(5)))) % 3;
     }
 
-    public void check_crash(Barrier b, int id) {
+    public void check_collision(Barrier b, int id) {
         if ((b.getWay() == hero.getWay()) && ((b.getY() + b.getRadius()) > hero.getY_up()) && (b.getY() - b.getRadius() < hero.getY_down())) {
-            hero.setHealth(hero.getHealth() - 1);
-            System.out.println(hero.getHealth());
+            collision = new Collision(b.getX(), b.getY(), 1f);
+            was_collision = true;
+
+        }
+    }
+
+    public void setOnCollisionListener(OnCollisionListener onCollisionListener) {
+        this.onCollisionListener = onCollisionListener;
+    }
+
+    public boolean Was_collision() {
+        return was_collision;
+    }
+
+    public void setOFF(boolean OFF) {
+        this.OFF = OFF;
+    }
+
+    class Collision implements Drawable, Movable {
+        private float x, y, r;
+        private float v = 20f;
+
+        Collision(float x0, float y0, float r0) {
+            x = x0;
+            y = y0;
+            r = r0;
+        }
+
+        @Override
+        public void draw(Canvas canvas, Paint paint, float RX, float RY) {
+            paint.setColor(Color.RED);
+            canvas.drawCircle(x * RX, y * RY, max(r * RX, r * RY), paint);
+    }
+
+        @Override
+        public void move() {
+            r += v;
+        }
+
+        public float getR() {
+            return r;
         }
     }
 

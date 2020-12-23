@@ -10,6 +10,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="taptostart">Tap to start</string>
+    <string name="taptoplay">Tap to play</string>
+    <string name="lose_text">You lost\nTap to play again</string>
 
 </resources>

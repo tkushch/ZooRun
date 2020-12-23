@@ -1,23 +1,19 @@
 package com.example.zoorun;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import static android.graphics.Color.rgb;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener {
     private FrameLayout frameLayout;
     private Button run, pause;
     private MyDraw md;
@@ -37,7 +33,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         frameLayout = findViewById(R.id.frame_Layout);
         frameLayout.setBackgroundColor(Color.WHITE);
         frameLayout.setAlpha(1f);
-        to_pause_screen();
+        to_pause_screen(getString(R.string.taptoplay));
+        md.setOnCollisionListener(this);
+
     }
 
     @Override
@@ -48,17 +46,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if (v == pause && !md.isPause()) {
             md.setPause(true);
-            to_pause_screen();
+            to_pause_screen(getString(R.string.taptoplay));
         }
     }
 
-    public void to_pause_screen() {
+    public void to_pause_screen(String message) {
         md.setPause(true);
         run = new Button(this);
         frameLayout.addView(run);
         run.setAlpha(0.6f);
         run.setBackgroundColor(rgb(200, 200, 200));
-        run.setText(R.string.taptostart);
+        run.setText(message);
         run.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         run.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
         run.setTextColor(Color.WHITE);
@@ -124,8 +122,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
-        if (!md.isPause()) {
-            to_pause_screen();
+        if (!md.isPause() && !md.Was_collision()) {
+            to_pause_screen(getString(R.string.taptoplay));
         }
+    }
+
+
+    @Override
+    public void onCollision() {
+        md.setOFF(true);
+        Intent intent = new Intent( MainActivity.this, EndActivity.class);
+        startActivity(intent);
+
     }
 }

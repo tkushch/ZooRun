@@ -11,7 +11,7 @@ public class Hero implements Drawable {
     private float x = 500f, y = 835f; // центр
     private float y_up = y - 10f, y_down = y + 10f;
     private float left_way_x = KN_line(y), center_way_x = x, right_way_x = PM_line(y);
-    private int health = 3;
+    private int health = 1;
 
     private boolean move_side_flag = false;
     private int delay = 10;

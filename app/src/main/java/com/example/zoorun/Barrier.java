@@ -74,4 +74,8 @@ public class Barrier implements Movable, Drawable {
     public int getWay() {
         return way;
     }
+
+    public float getX() {
+        return x;
+    }
 }
