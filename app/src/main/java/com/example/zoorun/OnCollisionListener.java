@@ -1,5 +1,5 @@
 package com.example.zoorun;
 
 public interface OnCollisionListener {
-    void onCollision();
+    void onCollision(int score, String param);
 }

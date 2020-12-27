@@ -4,8 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import static android.graphics.Color.rgb;
-
 public class Hero implements Drawable {
     private float radius_x = 90f, radius_y = 52f;
     private float x = 500f, y = 835f; // центр
@@ -24,7 +22,7 @@ public class Hero implements Drawable {
     //private Bitmap image;
 
     public Hero(float level) {
-        swipe_v = level * 5 * 1000f;
+        swipe_v = level * 10 * 1000f;
     }
 
 
@@ -146,6 +144,18 @@ public class Hero implements Drawable {
 
     public float getY_down() {
         return y_down;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getRadius_x() {
+        return radius_x;
     }
 
     public int getWay() {

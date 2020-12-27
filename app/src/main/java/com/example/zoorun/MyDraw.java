@@ -1,16 +1,18 @@
 package com.example.zoorun;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import static java.lang.Float.max;
-
 
 public class MyDraw extends View {
+    private int score = 0;
+    private OnScoreListener onScoreListener;
     private boolean OFF;
     private OnCollisionListener onCollisionListener;
     private Collision collision;
@@ -19,6 +21,10 @@ public class MyDraw extends View {
     private Ground ground;
     private Barrier[] barriers;
     private int barrier_delay = 0;
+    private Coin[] coins;
+    private int coin_delay = 0;
+    private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+    private boolean need_coin = true;
     private Paint paint = new Paint();
     private boolean isFirst;
     private boolean pause = true;
@@ -60,10 +66,19 @@ public class MyDraw extends View {
             }
         }
 
+        for (int i = 0; i < coins.length; i++) {
+            Coin c = coins[i];
+            if (c != null) {
+                if (c.isRelevance()) {
+                    c.draw(canvas, paint, RX, RY);
+                }
+            }
+        }
+
         //move
         if (!pause && !was_collision) {
             ground.move();
-
+            score++;
             if (hero.isInSwipe()) {
                 hero.swipe_move();
             } else {
@@ -75,19 +90,33 @@ public class MyDraw extends View {
                 if (b != null) {
                     if (b.isRelevance()) {
                         b.move();
-                        check_collision(b, i);
+                        check_collision(b);
+                    }
+                }
+            }
+
+            for (int i = 0; i < coins.length; i++) {
+                Coin c = coins[i];
+                if (c != null) {
+                    if (c.isRelevance()) {
+                        c.move();
+                        check_collision(c, i);
                     }
                 }
             }
             generate_barriers();
+            if (need_coin) {
+                generate_coins();
+            }
         } else if (was_collision) {
             collision.draw(canvas, paint, RX, RY);
             collision.move();
             if (collision.getR() > 1000f) {
-                onCollisionListener.onCollision();
+                onCollisionListener.onCollision(score, "end");
             }
         }
         if (!OFF) {
+            onScoreListener.OnScore(score);
             invalidate();
         }
     }
@@ -96,6 +125,7 @@ public class MyDraw extends View {
         ground = new Ground(LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
         hero = new Hero(LEVEL);
         barriers = new Barrier[100];
+        coins = new Coin[500];
 
     }
 
@@ -108,15 +138,11 @@ public class MyDraw extends View {
     }
 
     public void swipe_left() {
-        if (!hero.isInSwipe()) {
-            hero.swipe_left();
-        }
+        hero.swipe_left();
     }
 
     public void swipe_right() {
-        if (!hero.isInSwipe()) {
-            hero.swipe_right();
-        }
+        hero.swipe_right();
     }
 
     /*
@@ -138,7 +164,14 @@ public class MyDraw extends View {
     public void generate_barriers() {
         if (barrier_delay < 70) {
             barrier_delay++;
+            //избегаем наложения монет на препятствия
+            if (barrier_delay > 10 && barrier_delay < 60) {
+                need_coin = true;
+            } else {
+                need_coin = false;
+            }
         } else {
+            need_coin = false;
             barrier_delay = 0;
             int w1 = rand_0_3();
             int w2 = rand_0_3();
@@ -173,21 +206,84 @@ public class MyDraw extends View {
         }
     }
 
+    public void generate_coins() {
+        if (coin_delay < 35) {
+            coin_delay++;
+        } else {
+            coin_delay = 0;
+            int w1 = rand_0_3();
+            //int w2 = rand_0_3();
+            //while (w2 == w1) {
+            //    w2 = rand_0_3();
+            //}
+            for (int i = 0; i < coins.length; i++) {
+                boolean flag = false;
+                if (coins[i] == null) {
+                    flag = true;
+                } else if (!coins[i].isRelevance()) {
+                    flag = true;
+                }
+                if (flag) {
+                    coins[i] = new Coin(coin_image, w1, LEVEL);
+                    break;
+                }
+            }
+            /*for (int i = 0; i < coins.length; i++) {
+                boolean flag = false;
+                if (coins[i] == null) {
+                    flag = true;
+                } else if (!coins[i].isRelevance()) {
+                    flag = true;
+                }
+                if (flag) {
+                    coins[i] = new Coin(coin_image, w2, LEVEL);
+                    break;
+                }
+            }*/
+
+        }
+    }
+
     public int rand_0_3() {
         return (Integer.parseInt(Character.toString(String.valueOf(Math.random()).charAt(5)))) % 3;
     }
 
-    public void check_collision(Barrier b, int id) {
+    public void check_collision(Barrier b) {
         if ((b.getWay() == hero.getWay()) && ((b.getY() + b.getRadius()) > hero.getY_up()) && (b.getY() - b.getRadius() < hero.getY_down())) {
             collision = new Collision(b.getX(), b.getY(), 1f);
             was_collision = true;
+            onCollisionListener.onCollision(score, "begin");
 
+        }
+    }
+
+    public void check_collision(Coin c, int id) {
+        /*if ((c.getWay() == hero.getWay()) && ((c.getY() + c.getRadius()) > hero.getY_up()) && (c.getY() - c.getRadius() < hero.getY_down())) {
+            coins[id].setRelevance(false);
+            score += 100;
+        }
+
+         */
+        int checker = 0;
+        if (c.getX() + c.getRadius() >= hero.getX() - hero.getRadius_x()){checker++;}
+        if (c.getX() - c.getRadius() <= hero.getX() + hero.getRadius_x()){checker++;}
+        if (c.getY() + c.getRadius() >= hero.getY() - hero.getRadius_y()){checker++;}
+        if (c.getY() - c.getRadius() <= hero.getY() + hero.getRadius_y()){checker++;}
+        if (checker == 4){
+            coins[id].setRelevance(false);
+            score += 100;
         }
     }
 
     public void setOnCollisionListener(OnCollisionListener onCollisionListener) {
         this.onCollisionListener = onCollisionListener;
     }
+
+
+    public void setOnScoreListener(OnScoreListener onScoreListener) {
+        this.onScoreListener = onScoreListener;
+    }
+
 
     public boolean Was_collision() {
         return was_collision;
@@ -210,8 +306,8 @@ public class MyDraw extends View {
         @Override
         public void draw(Canvas canvas, Paint paint, float RX, float RY) {
             paint.setColor(Color.RED);
-            canvas.drawCircle(x * RX, y * RY, max(r * RX, r * RY), paint);
-    }
+            canvas.drawCircle(x * RX, y * RY, Math.max(r * RX, r * RY), paint);
+        }
 
         @Override
         public void move() {

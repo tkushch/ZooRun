@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import static android.graphics.Color.rgb;
 
-public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener {
+public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
     private FrameLayout frameLayout;
     private Button run, pause;
     private MyDraw md;
     private boolean swipe = false;
     private float[] swipe_start_coords = {0f, 0f};
+    private EditText et_score;
 
 
     @Override
@@ -33,8 +34,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         frameLayout = findViewById(R.id.frame_Layout);
         frameLayout.setBackgroundColor(Color.WHITE);
         frameLayout.setAlpha(1f);
+
         to_pause_screen(getString(R.string.taptoplay));
         md.setOnCollisionListener(this);
+        md.setOnScoreListener(this);
+        et_score = findViewById(R.id.edit_text_score);
+
 
     }
 
@@ -75,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         switch (event.getAction()) {
             // касание началось
             case MotionEvent.ACTION_DOWN://начало касания
-                if (y > 500f * md.getRY()) {
+                if (y > 100f * md.getRY()) {
                     swipe = true;
                     swipe_start_coords[0] = x;
                     swipe_start_coords[1] = y;
@@ -129,10 +134,27 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
 
 
     @Override
-    public void onCollision() {
-        md.setOFF(true);
-        Intent intent = new Intent( MainActivity.this, EndActivity.class);
-        startActivity(intent);
+    public void onCollision(int score, String param) {
+        if (param == "begin"){
+            findViewById(R.id.pause).setAlpha(0f);
+            findViewById(R.id.pause).setEnabled(false);
+            findViewById(R.id.edit_text_score).setAlpha(0f);
+        }
+        else if (param == "end") {
+            md.setOFF(true);
+            Intent intent = new Intent(MainActivity.this, EndActivity.class);
+            intent.putExtra("score", score);
+            startActivity(intent);
+        }
 
+    }
+
+    @Override
+    public void OnScore(int score) {
+        et_score.setText(String.valueOf(score));
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
