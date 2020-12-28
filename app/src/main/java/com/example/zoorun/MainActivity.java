@@ -17,7 +17,7 @@ import static android.graphics.Color.rgb;
 public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
     private SeekBar seekBar_level;
     private FrameLayout frameLayout;
-    private Button run, pause;
+    private Button run, pause, back;
     private MyDraw md;
     private boolean swipe = false;
     private final float[] swipe_start_coords = {0f, 0f};
@@ -33,6 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         md = findViewById(R.id.MyDraw);
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(this);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(this);
 
         seekBar_level = findViewById(R.id.seekBar_level);
         md.setLEVEL(getIntent().getIntExtra("level", 2));
@@ -48,8 +50,11 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         et_score = findViewById(R.id.edit_text_score);
 
         //Sounds
+        float volume = (float) (1 - (Math.log(100 - 40) / Math.log(100))); //max volume - curr volume
         collision_sound = MediaPlayer.create(this, R.raw.explosion);
+        collision_sound.setVolume(volume, volume);
         money_sound = MediaPlayer.create(this, R.raw.eat);
+        money_sound.setVolume(volume, volume);
 
 
     }
@@ -59,19 +64,18 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         if (v == run) {
             frameLayout.removeView(run);
             md.setPause(false);
+            back.setAlpha(0f);
+            back.setEnabled(false);
         }
         if (v == pause && !md.isPause()) {
             md.setPause(true);
             to_pause_screen(getString(R.string.taptoplay));
         }
-        /*if (v == findViewById(R.id.button2)){
-            md.selevmin();
-        }
-        if (v == findViewById(R.id.button3)){
-            md.selevplus();
+        if (v == back){
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
         }
 
-         */
     }
 
     public void to_pause_screen(String message) {
@@ -85,6 +89,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         run.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
         run.setTextColor(Color.WHITE);
         run.setOnClickListener(this);
+        back.setEnabled(true);
+        back.setAlpha(1f);
+
+
     }
 
 
@@ -188,5 +196,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     @Override
     public void onBackPressed() {
     }
+
+
 }
 

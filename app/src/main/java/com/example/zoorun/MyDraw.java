@@ -77,7 +77,7 @@ public class MyDraw extends View {
 
         //move
         if (!pause && !was_collision) {
-            ground.move();
+            //ground.move();
             if (LEVEL == 0.004f) {
                 score += 1;
             }

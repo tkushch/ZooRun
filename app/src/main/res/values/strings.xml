@@ -10,8 +10,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="taptoplay">Tap to play</string>
+    <string name="taptoplay">Коснитесь экрана</string>
     <string name="lose_text">You lost\nTap to play again</string>
     <string name="record_string">Ваш рекорд:\n</string>
+    <string name="back"><![CDATA[<]]></string>
 
 </resources>
