@@ -20,12 +20,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <com.example.zoorun.MyDraw
             android:id="@+id/MyDraw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-
+        <!-- Button
+                android:background="#ffffff"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="20dp"
+                android:text="меньше"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:onClick="onClick"
+                android:layout_height="wrap_content" android:id="@+id/button2"/>
+        <Button
+                android:background="#ffffff"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="20dp"
+                android:text="больше"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:onClick="onClick"
+                android:layout_height="wrap_content" android:id="@+id/button3"/> -->
 
 
     </FrameLayout>

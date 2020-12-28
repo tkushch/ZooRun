@@ -52,7 +52,7 @@
         </LinearLayout>
     </ScrollView>
     <TextView
-            android:text="Ваш рекорд:\n "
+            android:text="@string/record_string"
             android:layout_width="194dp"
             android:background="#555555"
             android:textSize="25dp"

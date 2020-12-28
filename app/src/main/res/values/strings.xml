@@ -12,5 +12,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="taptoplay">Tap to play</string>
     <string name="lose_text">You lost\nTap to play again</string>
+    <string name="record_string">Ваш рекорд:\n</string>
 
 </resources>

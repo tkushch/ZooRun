@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         pause.setOnClickListener(this);
 
         seekBar_level = findViewById(R.id.seekBar_level);
-        md.setLEVEL(getIntent().getIntExtra("level", 50));
+        md.setLEVEL(getIntent().getIntExtra("level", 2));
 
 
         frameLayout = findViewById(R.id.frame_Layout);
@@ -64,6 +64,14 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             md.setPause(true);
             to_pause_screen(getString(R.string.taptoplay));
         }
+        /*if (v == findViewById(R.id.button2)){
+            md.selevmin();
+        }
+        if (v == findViewById(R.id.button3)){
+            md.selevplus();
+        }
+
+         */
     }
 
     public void to_pause_screen(String message) {
@@ -153,9 +161,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
 
             //sound
             collision_sound.start();
+
             //vibrate
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(VibrationEffect.createOneShot(400L, 10));
+            vibrator.vibrate(VibrationEffect.createOneShot(300L, 10));
 
 
 
@@ -180,3 +189,4 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     public void onBackPressed() {
     }
 }
+

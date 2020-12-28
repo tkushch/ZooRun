@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Ground implements Movable, Drawable {
+    private float k1 = 4.3f, k2 = 4.3f, k3 = 4.3f;
     private float v;
     private Line[] left_lines;
     private Line[] right_lines;
@@ -35,7 +36,14 @@ public class Ground implements Movable, Drawable {
             float distance0 = distance * K(x_right);
             //
             if (i == 0) {
-                period = length0 + distance0;
+                if (LEVEL == 0.004f) {
+                    period = (length0 + distance0) * k1;
+                } else if (LEVEL == 0.0065f) {
+                    period = (length0 + distance0) * k2;
+                } else if (LEVEL == 0.009f) {
+                    period = (length0 + distance0) * k3;
+                }
+
             }
 
             if (x_left > 800f / 3f) { // abscissa of point "E"
@@ -52,7 +60,7 @@ public class Ground implements Movable, Drawable {
 
     public void move() {
         float x_left, x_right;
-        if (movement > period * 4.3f) {
+        if (movement > period) {
             movement = 0;
             x_left = 499f;
             x_right = 501f;
@@ -93,9 +101,9 @@ public class Ground implements Movable, Drawable {
         paint.setColor(Color.YELLOW);
         paint.setStrokeWidth(10f * RX);
         //AB
-        canvas.drawLine(RX * (-3500f/27f), RY * 1000f, RX * (3500f / 9f), RY * 0f, paint);
+        canvas.drawLine(RX * (-3500f / 27f), RY * 1000f, RX * (3500f / 9f), RY * 0f, paint);
         //DC
-        canvas.drawLine(RX * (30500f/27f), RY * 1000f, RX * (5500f / 9f), RY * 0f, paint);
+        canvas.drawLine(RX * (30500f / 27f), RY * 1000f, RX * (5500f / 9f), RY * 0f, paint);
 
         for (int i = 0; i < count_of_lines; i++) {
             // draw left lines
@@ -134,6 +142,30 @@ public class Ground implements Movable, Drawable {
         float k = 0.005f;
         return (k * (Math.abs(x0 - 500f)));
         //
+    }
+
+    public float getK1() {
+        return k1;
+    }
+
+    public void setK1(float k1) {
+        this.k1 = k1;
+    }
+
+    public float getK2() {
+        return k2;
+    }
+
+    public void setK2(float k2) {
+        this.k2 = k2;
+    }
+
+    public float getK3() {
+        return k3;
+    }
+
+    public void setK3(float k3) {
+        this.k3 = k3;
     }
 }
 

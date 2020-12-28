@@ -32,7 +32,7 @@ public class MyDraw extends View {
     private float RY;// условные единицы экрана 1000*1000
     private int COUNT_OF_LINES = 1000; // максимальное количество линий в ряду
     private float DISTANCE = 3f; // расстояние между абсциссами линий
-    private float LEVEL = 0.0065f; // скорость земли    (от 0.003 до 0.007)
+    private float LEVEL = 0.0065f; // скорость    (от 0.003 до 0.007)
     private float LINES_LENGTH = DISTANCE * 3f; // длина каждой линии
 
 
@@ -78,7 +78,15 @@ public class MyDraw extends View {
         //move
         if (!pause && !was_collision) {
             ground.move();
-            score++;
+            if (LEVEL == 0.004f) {
+                score += 1;
+            }
+            else if (LEVEL == 0.0065f){
+                score += 2;
+            }
+            else if (LEVEL == 0.009f){
+                score += 3;
+            }
             if (hero.isInSwipe()) {
                 hero.swipe_move();
             } else {
@@ -137,9 +145,18 @@ public class MyDraw extends View {
         this.pause = pause;
     }
 
-    public void setLEVEL(float level) {
-        if (level >= 1 && level <= 100) {
-            this.LEVEL = 0.003f + (0.007f - 0.003f) / 100f * level;
+    public void setLEVEL(int level) {
+        switch (level) {
+            case 1:
+                LEVEL = 0.004f;
+                break;
+            case 2:
+                LEVEL = 0.0065f;
+                break;
+            case 3:
+                LEVEL = 0.009f;
+                break;
+
         }
     }
 
@@ -339,6 +356,16 @@ public class MyDraw extends View {
         public float getR() {
             return r;
         }
+    }
+
+
+    public void selevplus(){
+        LEVEL += 0.0001f;
+        System.out.println(LEVEL);
+    }
+    public void selevmin(){
+        LEVEL -= 0.0001f;
+        System.out.println(LEVEL);
     }
 
 
