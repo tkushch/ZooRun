@@ -17,7 +17,7 @@ public class Barrier implements Movable, Drawable {
         this.way = way;
         x = 500f;
         y = -1500f / 7f;
-        radius = 30f;
+        radius = y * 2f;
         dy = level * 1000f;
         switch (way) {
             case 0:
@@ -45,11 +45,12 @@ public class Barrier implements Movable, Drawable {
             x += dx;
             y += dy;
             if (y < 500f) {
-                radius += 0.0012f * y;
+                radius = Math.round(Math.sqrt(y) + 5f);
             }
-            else{
-                radius += 0.0006f * y;
-            }
+
+            //else{
+            //    radius += 0.0006f * y;
+            //}
             if (y >= 835f) {
                 dx *= 1.0035f;
                 dy *= 1.0035f;

@@ -4,9 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import static android.graphics.Color.rgb;
-import static android.graphics.Color.valueOf;
-
 public class Ground implements Movable, Drawable {
     private float v;
     private Line[] left_lines;

@@ -22,7 +22,7 @@ public class Hero implements Drawable {
     //private Bitmap image;
 
     public Hero(float level) {
-        swipe_v = level * 10 * 1000f;
+        swipe_v = 0.5f * 10 * 1000f;
     }
 
 

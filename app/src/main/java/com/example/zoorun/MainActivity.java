@@ -1,25 +1,28 @@
 package com.example.zoorun;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.*;
 
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
+    private SeekBar seekBar_level;
     private FrameLayout frameLayout;
     private Button run, pause;
     private MyDraw md;
     private boolean swipe = false;
-    private float[] swipe_start_coords = {0f, 0f};
+    private final float[] swipe_start_coords = {0f, 0f};
     private EditText et_score;
+    private MediaPlayer collision_sound, money_sound;
 
 
     @Override
@@ -31,6 +34,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(this);
 
+        seekBar_level = findViewById(R.id.seekBar_level);
+        md.setLEVEL(getIntent().getIntExtra("level", 50));
+
+
         frameLayout = findViewById(R.id.frame_Layout);
         frameLayout.setBackgroundColor(Color.WHITE);
         frameLayout.setAlpha(1f);
@@ -39,6 +46,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         md.setOnCollisionListener(this);
         md.setOnScoreListener(this);
         et_score = findViewById(R.id.edit_text_score);
+
+        //Sounds
+        collision_sound = MediaPlayer.create(this, R.raw.explosion);
+        money_sound = MediaPlayer.create(this, R.raw.eat);
 
 
     }
@@ -135,16 +146,27 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
 
     @Override
     public void onCollision(int score, String param) {
-        if (param == "begin"){
+        if (param == "begin") {
             findViewById(R.id.pause).setAlpha(0f);
             findViewById(R.id.pause).setEnabled(false);
             findViewById(R.id.edit_text_score).setAlpha(0f);
-        }
-        else if (param == "end") {
+
+            //sound
+            collision_sound.start();
+            //vibrate
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(VibrationEffect.createOneShot(400L, 10));
+
+
+
+        } else if (param == "end") {
             md.setOFF(true);
             Intent intent = new Intent(MainActivity.this, EndActivity.class);
             intent.putExtra("score", score);
             startActivity(intent);
+        } else if (param == "money") {
+            money_sound.start();
+
         }
 
     }

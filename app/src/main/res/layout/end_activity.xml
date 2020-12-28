@@ -14,6 +14,7 @@
         android:textColor="#ffffff"
         android:background="#555555"
         android:text="Играть"
+        android:gravity="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,4 +51,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </ScrollView>
+    <TextView
+            android:text="Ваш рекорд:\n "
+            android:layout_width="194dp"
+            android:background="#555555"
+            android:textSize="25dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:layout_height="112dp" android:id="@+id/record"
+            app:layout_constraintTop_toBottomOf="@+id/play_again"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintVertical_bias="0.502"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

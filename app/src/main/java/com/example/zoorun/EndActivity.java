@@ -28,7 +28,7 @@ public class EndActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == play) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
         }
     }

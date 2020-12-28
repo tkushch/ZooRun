@@ -32,7 +32,7 @@ public class MyDraw extends View {
     private float RY;// условные единицы экрана 1000*1000
     private int COUNT_OF_LINES = 1000; // максимальное количество линий в ряду
     private float DISTANCE = 3f; // расстояние между абсциссами линий
-    private float LEVEL = 0.0065f; // скорость земли    (от 0.003 до 0.008)
+    private float LEVEL = 0.0065f; // скорость земли    (от 0.003 до 0.007)
     private float LINES_LENGTH = DISTANCE * 3f; // длина каждой линии
 
 
@@ -137,6 +137,12 @@ public class MyDraw extends View {
         this.pause = pause;
     }
 
+    public void setLEVEL(float level) {
+        if (level >= 1 && level <= 100) {
+            this.LEVEL = 0.003f + (0.007f - 0.003f) / 100f * level;
+        }
+    }
+
     public void swipe_left() {
         hero.swipe_left();
     }
@@ -162,10 +168,10 @@ public class MyDraw extends View {
     }
 
     public void generate_barriers() {
-        if (barrier_delay < 70) {
+        if (barrier_delay < 70 * (1f / LEVEL) / 200) {
             barrier_delay++;
             //избегаем наложения монет на препятствия
-            if (barrier_delay > 10 && barrier_delay < 60) {
+            if (barrier_delay > 10 * (1f / LEVEL / 200) && barrier_delay < 60 * (1f / LEVEL / 200)) {
                 need_coin = true;
             } else {
                 need_coin = false;
@@ -249,29 +255,45 @@ public class MyDraw extends View {
     }
 
     public void check_collision(Barrier b) {
-        if ((b.getWay() == hero.getWay()) && ((b.getY() + b.getRadius()) > hero.getY_up()) && (b.getY() - b.getRadius() < hero.getY_down())) {
+
+        int checker = 0;
+        if (b.getX() + b.getRadius() >= hero.getX() - hero.getRadius_x()) {
+            checker++;
+        }
+        if (b.getX() - b.getRadius() <= hero.getX() + hero.getRadius_x()) {
+            checker++;
+        }
+        if (b.getY() + b.getRadius() >= hero.getY() - hero.getRadius_y()) {
+            checker++;
+        }
+        if (b.getY() - b.getRadius() <= hero.getY() + hero.getRadius_y()) {
+            checker++;
+        }
+        if (checker == 4) {
             collision = new Collision(b.getX(), b.getY(), 1f);
             was_collision = true;
             onCollisionListener.onCollision(score, "begin");
-
         }
     }
 
     public void check_collision(Coin c, int id) {
-        /*if ((c.getWay() == hero.getWay()) && ((c.getY() + c.getRadius()) > hero.getY_up()) && (c.getY() - c.getRadius() < hero.getY_down())) {
-            coins[id].setRelevance(false);
-            score += 100;
-        }
-
-         */
         int checker = 0;
-        if (c.getX() + c.getRadius() >= hero.getX() - hero.getRadius_x()){checker++;}
-        if (c.getX() - c.getRadius() <= hero.getX() + hero.getRadius_x()){checker++;}
-        if (c.getY() + c.getRadius() >= hero.getY() - hero.getRadius_y()){checker++;}
-        if (c.getY() - c.getRadius() <= hero.getY() + hero.getRadius_y()){checker++;}
-        if (checker == 4){
+        if (c.getX() + c.getRadius() >= hero.getX() - hero.getRadius_x()) {
+            checker++;
+        }
+        if (c.getX() - c.getRadius() <= hero.getX() + hero.getRadius_x()) {
+            checker++;
+        }
+        if (c.getY() + c.getRadius() >= hero.getY() - hero.getRadius_y()) {
+            checker++;
+        }
+        if (c.getY() - c.getRadius() <= hero.getY() + hero.getRadius_y()) {
+            checker++;
+        }
+        if (checker == 4) {
             coins[id].setRelevance(false);
             score += 100;
+            onCollisionListener.onCollision(score, "money");
         }
     }
 
