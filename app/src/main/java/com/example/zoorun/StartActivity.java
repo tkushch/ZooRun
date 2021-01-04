@@ -49,6 +49,10 @@ public class StartActivity extends Activity implements View.OnClickListener, See
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }
 
 

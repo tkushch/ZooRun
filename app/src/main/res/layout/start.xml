@@ -11,6 +11,7 @@
 
 
     <Button
+
             android:textSize="30dp"
             android:textColor="#ffffff"
             android:background="#555555"
@@ -32,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.45"/>
+            app:layout_constraintVertical_bias="0.19999999"/>
     <TextView
             android:gravity="center"
             android:text="Сложность"
@@ -43,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.19999999" app:layout_constraintHorizontal_bias="0.65"/>
+            app:layout_constraintVertical_bias="0.26" app:layout_constraintHorizontal_bias="0.65"/>
     <TextView
             android:textColor="#ffffff"
             android:gravity="center"

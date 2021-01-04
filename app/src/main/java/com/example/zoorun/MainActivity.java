@@ -23,6 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     private final float[] swipe_start_coords = {0f, 0f};
     private EditText et_score;
     private MediaPlayer collision_sound, money_sound;
+    private float volume;
 
 
     @Override
@@ -50,7 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         et_score = findViewById(R.id.edit_text_score);
 
         //Sounds
-        float volume = (float) (1 - (Math.log(100 - 40) / Math.log(100))); //max volume - curr volume
+        volume = (float) (1 - (Math.log(100 - 55) / Math.log(100))); //max volume - curr volume
         collision_sound = MediaPlayer.create(this, R.raw.explosion);
         collision_sound.setVolume(volume, volume);
         money_sound = MediaPlayer.create(this, R.raw.eat);
@@ -182,7 +183,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             intent.putExtra("score", score);
             startActivity(intent);
         } else if (param == "money") {
-            money_sound.start();
+            if (money_sound.isPlaying()){
+                money_sound.seekTo(0);
+            }
+            else{
+                money_sound.start();
+            }
 
         }
 
@@ -195,6 +201,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
 
     @Override
     public void onBackPressed() {
+
     }
 
 

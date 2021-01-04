@@ -5,8 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Hero implements Drawable {
-    private float radius_x = 90f, radius_y = 52f;
-    private float x = 500f, y = 835f; // центр
+    private float radius_x = 67.5f, radius_y = 39f; //было 90 и 52
+    private float x = 500f, y = 750f; // центр
     private float y_up = y - 10f, y_down = y + 10f;
     private float left_way_x = KN_line(y), center_way_x = x, right_way_x = PM_line(y);
     private int health = 1;
