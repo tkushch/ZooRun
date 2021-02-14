@@ -12,6 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
+import java.io.*;
+import java.util.Scanner;
+
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
@@ -38,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         back.setOnClickListener(this);
 
         seekBar_level = findViewById(R.id.seekBar_level);
-        md.setLEVEL(getIntent().getIntExtra("level", 2));
+        md.setLEVEL(getIntent().getIntExtra("level", 1));
 
 
         frameLayout = findViewById(R.id.frame_Layout);
@@ -73,6 +76,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             to_pause_screen(getString(R.string.taptoplay));
         }
         if (v == back){
+            savescore();
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
         }
@@ -155,6 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     @Override
     protected void onPause() {
         super.onPause();
+        savescore();
         if (!md.isPause() && !md.Was_collision()) {
             to_pause_screen(getString(R.string.taptoplay));
         }
@@ -199,11 +204,36 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         et_score.setText(String.valueOf(score));
     }
 
-    @Override
-    public void onBackPressed() {
+    public void savescore(){
+        int score = Integer.parseInt(String.valueOf(et_score.getText()));
+        int record = 0;
 
+        //record
+        File file = new File(getDataDir(), "record.txt");
+
+        try {
+            Scanner sc = new Scanner(file);
+            record = Integer.parseInt(sc.next());
+
+        } catch (FileNotFoundException e) {
+            System.err.println("No such file");
+        }
+
+        record = Math.max(score, record);
+
+        file.delete();
+        file = new File(getDataDir(), "record.txt");
+
+        try {
+            PrintWriter pv = new PrintWriter(new FileWriter(file));
+            pv.write(String.valueOf(record));
+            pv.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
 
 }
 
