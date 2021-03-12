@@ -24,6 +24,7 @@ public class MyDraw extends View {
     private Coin[] coins;
     private int coin_delay = 0;
     private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+    private Bitmap hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car2);
     private boolean need_coin = true;
     private Paint paint = new Paint();
     private boolean isFirst;
@@ -90,7 +91,7 @@ public class MyDraw extends View {
             if (hero.isInSwipe()) {
                 hero.swipe_move();
             } else {
-                hero.jump();
+                //hero.jump();
             }
 
             for (int i = 0; i < barriers.length; i++) {
@@ -131,7 +132,7 @@ public class MyDraw extends View {
 
     public void fill() {
         ground = new Ground(LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
-        hero = new Hero(LEVEL);
+        hero = new Hero(LEVEL, hero_image);
         barriers = new Barrier[100];
         coins = new Coin[500];
 

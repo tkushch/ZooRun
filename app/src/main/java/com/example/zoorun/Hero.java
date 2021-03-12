@@ -1,8 +1,6 @@
 package com.example.zoorun;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.*;
 
 public class Hero implements Drawable {
     private float radius_x = 67.5f, radius_y = 39f; //было 90 и 52
@@ -19,11 +17,13 @@ public class Hero implements Drawable {
     private float swipe_v; // swipe velocity (by level)
     private float swipe_target = center_way_x;
     private int way = 1; // 0, 1 or 2;
-    //private Bitmap image;
+    private Bitmap image;
 
-    public Hero(float level) {
+    public Hero(float level, Bitmap yourBitmap) {
         swipe_v = 0.5f * 10 * 1000f;
+        image = Bitmap.createScaledBitmap(yourBitmap, (int) (yourBitmap.getWidth() * 0.2), (int) (yourBitmap.getHeight() * 0.18), true);
     }
+
 
 
     public void jump() {
@@ -63,7 +63,8 @@ public class Hero implements Drawable {
     @Override
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.YELLOW);
-        canvas.drawRect(RX * (x - radius_x), RY * (y - radius_y), RX * (x + radius_x), RY * (y + radius_y), paint);
+        canvas.drawBitmap(image, RX * (x - radius_x), RY * (y - radius_y), paint);
+        //canvas.drawRect(RX * (x - radius_x), RY * (y - radius_y), RX * (x + radius_x), RY * (y + radius_y), paint);
     }
 
     public void swipe_left() {
