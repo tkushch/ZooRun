@@ -11,8 +11,9 @@ import java.io.*;
 import java.util.Scanner;
 
 public class EndActivity extends Activity implements View.OnClickListener {
-    private Button play;
+    private Button play, save;
     private TextView tv_score;
+    private int record;
 
 
     @Override
@@ -21,11 +22,14 @@ public class EndActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.end_activity);
         play = findViewById(R.id.play_again);
         play.setOnClickListener(this);
+        save = findViewById(R.id.savetobd);
+        save.setOnClickListener(this);
+
         Intent intent = getIntent();
         int score = intent.getIntExtra("score", 0);
         tv_score = findViewById(R.id.text_view_results);
         tv_score.setText(tv_score.getText() + " " + String.valueOf(score));
-        int record = 0;
+        record = 0;
 
         //record
         File file = new File(getDataDir(), "record.txt");
@@ -63,6 +67,11 @@ public class EndActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == play) {
             Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+        }
+        else if (v == save){
+            Intent intent = new Intent(this, SaveRecordActivity.class);
+            intent.putExtra("record", record);
             startActivity(intent);
         }
     }

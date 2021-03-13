@@ -63,4 +63,10 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintVertical_bias="0.502"/>
+    <Button
+            android:text="Сохранить рекорд в базу даннных"
+            android:layout_width="147dp"
+            android:layout_height="65dp" android:id="@+id/savetobd"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/record" app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
