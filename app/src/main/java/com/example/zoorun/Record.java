@@ -2,12 +2,12 @@ package com.example.zoorun;
 
 import java.io.Serializable;
 
-public class Records implements Serializable {
+public class Record implements Serializable {
     private long id;
     private String name;
     private int value;
 
-    public Records (long id, String name, int value) {
+    public Record(long id, String name, int value) {
         this.id = id;
         this.name = name;
         this.value = value;

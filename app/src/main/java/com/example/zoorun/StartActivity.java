@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
+import androidx.annotation.NonNull;
 
 
 public class StartActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private Button start_button, info_button, infoback;
     private SeekBar seekBar;
-    private int level = 1;
+    private int level;
     private ScrollView scrollView;
 
     @Override
@@ -29,6 +30,9 @@ public class StartActivity extends Activity implements View.OnClickListener, See
         infoback.setOnClickListener(this);
         scrollView = findViewById(R.id.scrollView2);
 
+        level = getIntent().getIntExtra("level", 1);
+        seekBar.setProgress(level);
+
     }
 
 
@@ -38,6 +42,7 @@ public class StartActivity extends Activity implements View.OnClickListener, See
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("level", level);
             startActivity(intent);
+
         }
         else if (v == info_button){
             scrollView.setAlpha(1);
@@ -80,6 +85,20 @@ public class StartActivity extends Activity implements View.OnClickListener, See
     @Override
     public void onBackPressed() {
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("level", level);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        level = savedInstanceState.getInt("level",1);
+    }
+
+
 }
 
 

@@ -36,11 +36,11 @@ public class DBRecords {
         return mDataBase.insert(TABLE_NAME, null, cv);
     }
 
-    public int update(Records records) {
+    public int update(Record record) {
         ContentValues cv=new ContentValues();
-        cv.put(COLUMN_NAME, records.getName());
-        cv.put(COLUMN_VALUE, records.getValue());
-        return mDataBase.update(TABLE_NAME, cv, COLUMN_ID + " = ?",new String[] { String.valueOf(records.getId())});
+        cv.put(COLUMN_NAME, record.getName());
+        cv.put(COLUMN_VALUE, record.getValue());
+        return mDataBase.update(TABLE_NAME, cv, COLUMN_ID + " = ?",new String[] { String.valueOf(record.getId())});
     }
     public void deleteAll() {
         mDataBase.delete(TABLE_NAME, null, null);
@@ -50,26 +50,26 @@ public class DBRecords {
         mDataBase.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[] { String.valueOf(id) });
     }
 
-    public Records select(long id) {
+    public Record select(long id) {
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, COLUMN_ID + " = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         mCursor.moveToFirst();
         String name = mCursor.getString(NUM_COLUMN_NAME);
         int value = mCursor.getInt(NUM_COLUMN_VALUE);
-        return new Records(id, name, value);
+        return new Record(id, name, value);
     }
 
-    public ArrayList<Records> selectAll() {
+    public ArrayList<Record> selectAll() {
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
 
-        ArrayList<Records> arr = new ArrayList<Records>();
+        ArrayList<Record> arr = new ArrayList<Record>();
         mCursor.moveToFirst();
         if (!mCursor.isAfterLast()) {
             do {
                 long id = mCursor.getLong(NUM_COLUMN_ID);
                 String name = mCursor.getString(NUM_COLUMN_NAME);
                 int value = mCursor.getInt(NUM_COLUMN_VALUE);
-                arr.add(new Records(id, name, value));
+                arr.add(new Record(id, name, value));
             } while (mCursor.moveToNext());
         }
         return arr;

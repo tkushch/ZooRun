@@ -8,15 +8,13 @@
         tools:context=".SaveRecordActivity">
 
     <EditText
-            android:text="standart_nickname
-"
             android:id="@+id/edit_text_name"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="292dp"
+            android:layout_height="47dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     <TextView
-            android:text=" Рекорд"
+            android:text=" Счёт"
             android:layout_width="180dp"
             android:layout_height="25dp" android:id="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"

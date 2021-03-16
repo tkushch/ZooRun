@@ -3,27 +3,35 @@ package com.example.zoorun;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SaveRecordActivity extends Activity implements View.OnClickListener {
     private int record;
 
     private TextView tvrecord;
     private EditText editTextName;
-    private Button save, openbd, back;
-
+    private Button save, openbd, back, dbClearAll, dbBack;
+    private ListView mListView;
     private DBRecords mDBConnector;
     private Context mContext;
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_record);
+        setAll();
+    }
+
+    protected void setAll(){
         record = getIntent().getIntExtra("record", 0);
         tvrecord = findViewById(R.id.tvrecord);
         tvrecord.setText(String.valueOf(record));
@@ -35,42 +43,54 @@ public class SaveRecordActivity extends Activity implements View.OnClickListener
         back = findViewById(R.id.button3back);
         back.setOnClickListener(this);
 
-        mDBConnector=new DBRecords(this);
-        mContext=this;
+        mDBConnector = new DBRecords(this);
+        mContext = this;
     }
-
 
     @Override
     public void onClick(View v) {
-        if (v == save){
+        if (v == save) {
             String nickname = editTextName.getText().toString();
             boolean flag = true;
-            for (int i = 0; i < nickname.length() && flag; i++){
-                if (!Character.isLetter(nickname.charAt(i))){
+            for (int i = 0; i < nickname.length() && flag; i++) {
+                if (!Character.isLetter(nickname.charAt(i))) {
                     flag = false;
                 }
             }
-            if (flag){
-//                Records note = new Records(0, nickname, record); //  Дописать (ID)
+            if (nickname.length() == 0) {
+                flag = false;
+            }
+            if (flag) {
                 mDBConnector.insert(nickname, record);
+                editTextName.setText("Сохранено");
+            } else {
+                editTextName.setText("Недопустимое имя");
             }
-        }
-        if (v == openbd){
+        } else if (v == openbd) {
             setContentView(R.layout.dblist);
-            ArrayList<Records> r = mDBConnector.selectAll();
-            ArrayList<Integer> rec = new ArrayList<>();
-            for (Records record: r){
-                rec.add(record.getValue());
-            }
-            //ДОПИСАТЬ
-            ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, new ArrayList<Integer>(Arrays.asList(1, 5, 4, 2, 4)));
+            dbClearAll = findViewById(R.id.dblistclearall);
+            dbBack = findViewById(R.id.dblistback);
+            dbClearAll.setOnClickListener(this);
+            dbBack.setOnClickListener(this);
 
-            ListView lv = findViewById(R.id.dblistview);
-            lv.setAdapter(adapter);
-        }
-        if (v == back){
-            Intent intent = new Intent(this, StartActivity.class);
+
+            myAdapter = new MyAdapter(this, mDBConnector.selectAll());
+            mListView = findViewById(R.id.dblistview);
+            mListView.setAdapter(myAdapter);
+            registerForContextMenu(mListView);
+        } else if (v == back) {
+            Intent intent = new Intent(this, EndActivity.class);
+            intent.putExtra("score", record);
             startActivity(intent);
+        } else if (v == dbClearAll) {
+            mDBConnector.deleteAll();
+            myAdapter.setArrayMyData(mDBConnector.selectAll());
+            myAdapter.notifyDataSetChanged();
+        } else if (v == dbBack) {
+            setContentView(R.layout.activity_save_record);
+            setAll();
         }
     }
+
+
 }

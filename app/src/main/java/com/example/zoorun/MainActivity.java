@@ -19,6 +19,7 @@ import static android.graphics.Color.rgb;
 
 public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
     private SeekBar seekBar_level;
+    private int level;
     private FrameLayout frameLayout;
     private Button run, pause, back;
     private MyDraw md;
@@ -41,7 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         back.setOnClickListener(this);
 
         seekBar_level = findViewById(R.id.seekBar_level);
-        md.setLEVEL(getIntent().getIntExtra("level", 1));
+        level = getIntent().getIntExtra("level", 1);
+        md.setLEVEL(level);
 
 
         frameLayout = findViewById(R.id.frame_Layout);
@@ -78,6 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         if (v == back){
             savescore();
             Intent intent = new Intent(this, StartActivity.class);
+            intent.putExtra("level", level);
             startActivity(intent);
         }
 
