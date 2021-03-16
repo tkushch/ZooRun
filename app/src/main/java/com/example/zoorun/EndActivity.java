@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class EndActivity extends Activity implements View.OnClickListener {
     private Button play, save;
     private TextView tv_score;
-    private int record, score;
+    private int record, score, level;
 
 
     @Override
@@ -24,9 +24,9 @@ public class EndActivity extends Activity implements View.OnClickListener {
         play.setOnClickListener(this);
         save = findViewById(R.id.savetobd);
         save.setOnClickListener(this);
-
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
+        level = intent.getIntExtra("level", 1);
         tv_score = findViewById(R.id.text_view_results);
         tv_score.setText(tv_score.getText() + " " + String.valueOf(score));
         record = 0;
@@ -67,6 +67,7 @@ public class EndActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == play) {
             Intent intent = new Intent(this, StartActivity.class);
+            intent.putExtra("level", level);
             startActivity(intent);
         }
         else if (v == save){

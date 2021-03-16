@@ -189,6 +189,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             md.setOFF(true);
             Intent intent = new Intent(MainActivity.this, EndActivity.class);
             intent.putExtra("score", score);
+            intent.putExtra("level", level);
             startActivity(intent);
         } else if (param == "money") {
             if (money_sound.isPlaying()){
