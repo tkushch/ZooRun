@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZooRun!</string>
+    <string name="app_name">CarDriving</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_page">MainPage</string>
     <!-- Strings used for fragments for navigation -->
@@ -16,9 +16,11 @@
     <string name="back"><![CDATA[<]]></string>
     <string name="info">В этой игре нужно с помощью движений пальцем по экрану (влево и вправо)
         уворачиваться от больших кругов, ведь столконовение с ними приведет к завершению игры.
-        \n\n Маленькие круги наоборот стоит ловить, ведь они увеличивают ваш счет. \n\n
+        \n\n Маленькие круги наоборот нужно ловить, ведь они увеличивают ваш счет. \n\n
         Ваша задача - набрать как можно больше очков и побить рекорд друзей!
     </string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
 
 
 </resources>

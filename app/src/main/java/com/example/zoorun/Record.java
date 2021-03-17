@@ -1,8 +1,9 @@
 package com.example.zoorun;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class Record implements Serializable {
+public class Record implements Serializable, Comparable<Record> {
     private long id;
     private String name;
     private int value;
@@ -23,5 +24,11 @@ public class Record implements Serializable {
 
     public int getValue() {
         return value;
+    }
+
+
+    @Override
+    public int compareTo(Record o) {
+        return value - o.value;
     }
 }

@@ -3,18 +3,17 @@ package com.example.zoorun;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SaveRecordActivity extends Activity implements View.OnClickListener {
-    private int record;
+    private int record, level;
 
     private TextView tvrecord;
     private EditText editTextName;
@@ -24,14 +23,16 @@ public class SaveRecordActivity extends Activity implements View.OnClickListener
     private Context mContext;
     private MyAdapter myAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_record);
+        level = getIntent().getIntExtra("level", 1);
         setAll();
     }
 
-    protected void setAll(){
+    protected void setAll() {
         record = getIntent().getIntExtra("record", 0);
         tvrecord = findViewById(R.id.tvrecord);
         tvrecord.setText(String.valueOf(record));
@@ -72,25 +73,61 @@ public class SaveRecordActivity extends Activity implements View.OnClickListener
             dbBack = findViewById(R.id.dblistback);
             dbClearAll.setOnClickListener(this);
             dbBack.setOnClickListener(this);
-
-
-            myAdapter = new MyAdapter(this, mDBConnector.selectAll());
+            ArrayList<Record> records = mDBConnector.selectAll();
+            Collections.sort(records, new Comparator<Record>() {
+                @Override
+                public int compare(Record o1, Record o2) {
+                    return -o1.compareTo(o2);
+                }
+            });
+            myAdapter = new MyAdapter(this, records);
             mListView = findViewById(R.id.dblistview);
             mListView.setAdapter(myAdapter);
             registerForContextMenu(mListView);
+
         } else if (v == back) {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("score", record);
+            intent.putExtra("level", level);
             startActivity(intent);
         } else if (v == dbClearAll) {
             mDBConnector.deleteAll();
-            myAdapter.setArrayMyData(mDBConnector.selectAll());
-            myAdapter.notifyDataSetChanged();
+            updateList();
         } else if (v == dbBack) {
             setContentView(R.layout.activity_save_record);
             setAll();
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu_bd, menu);
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case R.id.bdmenudeleteitem:
+                mDBConnector.delete (info.id);
+                updateList();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void updateList(){
+        ArrayList<Record> records = mDBConnector.selectAll();
+        Collections.sort(records, new Comparator<Record>() {
+            @Override
+            public int compare(Record o1, Record o2) {
+                return -o1.compareTo(o2);
+            }
+        });
+        myAdapter.setArrayMyData(records);
+        myAdapter.notifyDataSetChanged();
+    }
 }

@@ -73,6 +73,7 @@ public class EndActivity extends Activity implements View.OnClickListener {
         else if (v == save){
             Intent intent = new Intent(this, SaveRecordActivity.class);
             intent.putExtra("record", score);
+            intent.putExtra("level", level);
             startActivity(intent);
         }
     }
@@ -80,6 +81,7 @@ public class EndActivity extends Activity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, StartActivity.class);
+        intent.putExtra("level", level);
         startActivity(intent);
     }
 

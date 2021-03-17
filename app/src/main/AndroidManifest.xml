@@ -11,7 +11,12 @@
             android:roundIcon="@drawable/app_icon"
             android:supportsRtl="true"
             android:theme="@android:style/Theme.Light.NoTitleBar">
-        <activity android:name=".SaveRecordActivity">
+        <activity
+                android:label="DataBase"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Light.NoTitleBar"
+                android:name=".SaveRecordActivity"
+        >
         </activity>
         <activity
                 android:name=".StartActivity"
@@ -35,6 +40,8 @@
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         </activity>
+
+
     </application>
 
 </manifest>
