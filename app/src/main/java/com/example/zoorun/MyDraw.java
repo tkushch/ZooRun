@@ -11,7 +11,8 @@ import android.view.View;
 
 
 public class MyDraw extends View {
-    private int score = 0;
+    private MainActivity ma;
+    private int score = 0, gasoline = 1000;
     private OnScoreListener onScoreListener;
     private boolean OFF;
     private OnCollisionListener onCollisionListener;
@@ -23,7 +24,7 @@ public class MyDraw extends View {
     private int barrier_delay = 0;
     private Coin[] coins;
     private int coin_delay = 0;
-    private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+    private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin1);
     private Bitmap hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car2);
     private boolean need_coin = true;
     private Paint paint = new Paint();
@@ -78,16 +79,21 @@ public class MyDraw extends View {
 
         //move
         if (!pause && !was_collision) {
-            //ground.move();
+//            ground.move();
             if (LEVEL == 0.004f) {
-                score += 1;
+                score++;
+                gasoline -= 2;
+
             }
             else if (LEVEL == 0.0065f){
                 score += 2;
+                gasoline -= 2;
             }
             else if (LEVEL == 0.009f){
                 score += 3;
+                gasoline -= 2;
             }
+
             if (hero.isInSwipe()) {
                 hero.swipe_move();
             } else {
@@ -112,6 +118,14 @@ public class MyDraw extends View {
                         check_collision(c, i);
                     }
                 }
+            }
+            if (gasoline > 0){
+                ma.setGasoline(gasoline);
+            }
+            else{
+                collision = new Collision(hero.getX(),hero.getY(), 1f);
+                was_collision = true;
+                onCollisionListener.onCollision(score, "begin");
             }
             generate_barriers();
             if (need_coin) {
@@ -311,6 +325,13 @@ public class MyDraw extends View {
         if (checker == 4) {
             coins[id].setRelevance(false);
             score += 100;
+            if (gasoline < 1000){
+                gasoline += 400;
+                if (gasoline > 1000){
+                    gasoline = 1000;
+                }
+            }
+            ma.setGasoline(gasoline);
             onCollisionListener.onCollision(score, "money");
         }
     }
@@ -360,6 +381,12 @@ public class MyDraw extends View {
     }
 
 
+    public void setMa(MainActivity ma) {
+        this.ma = ma;
+    }
+
+
+/*
     public void selevplus(){
         LEVEL += 0.0001f;
         System.out.println(LEVEL);
@@ -368,6 +395,8 @@ public class MyDraw extends View {
         LEVEL -= 0.0001f;
         System.out.println(LEVEL);
     }
+
+ */
 
 
 }

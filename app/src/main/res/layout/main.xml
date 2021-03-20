@@ -28,25 +28,26 @@
                 android:layout_height="match_parent"/>
 
 
+
     </FrameLayout>
 
     <Button
-        android:id="@+id/pause"
-        android:layout_width="72dp"
-        android:layout_height="62dp"
-        android:background="#000000"
-        android:text="||"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:gravity="center_horizontal" />
+            android:id="@+id/pause"
+            android:layout_width="72dp"
+            android:layout_height="62dp"
+            android:background="#000000"
+            android:text="||"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:gravity="center_horizontal"/>
     <Button
             android:alpha="0"
             android:id="@+id/back"
@@ -62,12 +63,12 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0" android:layout_marginTop="2dp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/edit_text_score"
-        android:layout_width="125dp"
-        android:layout_height="41dp"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:ems="10"
-        android:inputType="none"
+        android:background="@android:color/white"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +76,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+    <TextView
+            android:background="#FFFF00"
+            android:text=""
+            android:textAlignment="center"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:id="@+id/gasoline" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_score"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/edit_text_score"
+            app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.0"
+            android:gravity="center_horizontal"/>
+    <TextView
+            android:text="ТОПЛИВО"
+            android:textAlignment="center"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:id="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gasoline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gasoline"
+            app:layout_constraintVertical_bias="0.0" android:gravity="center_horizontal"/>
 
 
 

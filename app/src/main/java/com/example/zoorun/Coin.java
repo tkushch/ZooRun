@@ -32,6 +32,7 @@ public class Coin implements Movable, Drawable {
                 dx = RIGHT_LINE_TANGENS * dy;
                 break;
         }
+        image = Bitmap.createScaledBitmap(image, (int) (image.getWidth() * 0.07), (int) (image.getHeight() * 0.07), true);
         this.image = image;
         relevance = true;
     }
@@ -39,16 +40,9 @@ public class Coin implements Movable, Drawable {
     @Override
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.YELLOW);
-        canvas.drawCircle(x * RX, y * RY, radius * RX, paint);
+//        canvas.drawCircle(x * RX, y * RY, radius * RX, paint);
+        canvas.drawBitmap(image, RX * x - (image.getWidth() / 2.0f), RY * y - (image.getHeight() / 2.0f), paint);
 
-        /*Matrix matrix = new Matrix();
-        //matrix.setScale(100f * RX / image.getWidth(), 100f * RY / image.getHeight());
-        matrix.setScale(0.5f, 0.5f);
-        matrix.postTranslate((x - radius_x) * RX , (y - radius_y) * RY);
-        paint.setAlpha(255);
-        canvas.drawBitmap(image, matrix, new Paint());
-
-         */
     }
 
     @Override

@@ -8,9 +8,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.*;
 import java.util.Scanner;
@@ -25,7 +28,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     private MyDraw md;
     private boolean swipe = false;
     private final float[] swipe_start_coords = {0f, 0f};
-    private EditText et_score;
+    private TextView et_score, gasoline;
     private MediaPlayer collision_sound, money_sound;
     private float volume;
 
@@ -33,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen); //не помогло
+        setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         setContentView(R.layout.main);
         md = findViewById(R.id.MyDraw);
         pause = findViewById(R.id.pause);
@@ -53,7 +56,9 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
         to_pause_screen(getString(R.string.taptoplay));
         md.setOnCollisionListener(this);
         md.setOnScoreListener(this);
+        md.setMa(this);
         et_score = findViewById(R.id.edit_text_score);
+        gasoline = findViewById(R.id.gasoline);
 
         //Sounds
         volume = (float) (1 - (Math.log(100 - 55) / Math.log(100))); //max volume - curr volume
@@ -175,6 +180,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             findViewById(R.id.pause).setAlpha(0f);
             findViewById(R.id.pause).setEnabled(false);
             findViewById(R.id.edit_text_score).setAlpha(0f);
+            gasoline.setAlpha(0f);
 
             //sound
             collision_sound.start();
@@ -201,6 +207,14 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
 
         }
 
+    }
+
+    public void setGasoline(int g){
+        float gas = g * 0.12f;
+        int px1 = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gas, getResources().getDisplayMetrics());
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gasoline.getLayoutParams();
+        params.width = px1;
+        this.gasoline.setLayoutParams(new ConstraintLayout.LayoutParams(params));
     }
 
     @Override
