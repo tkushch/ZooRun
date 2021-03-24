@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.*;
@@ -20,7 +21,7 @@ import java.util.Scanner;
 
 import static android.graphics.Color.rgb;
 
-public class MainActivity extends Activity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
     private SeekBar seekBar_level;
     private int level;
     private FrameLayout frameLayout;
@@ -181,6 +182,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCo
             findViewById(R.id.pause).setEnabled(false);
             findViewById(R.id.edit_text_score).setAlpha(0f);
             gasoline.setAlpha(0f);
+            findViewById(R.id.textView8).setAlpha(0f);
 
             //sound
             collision_sound.start();

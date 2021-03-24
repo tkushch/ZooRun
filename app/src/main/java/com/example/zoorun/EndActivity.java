@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class EndActivity extends Activity implements View.OnClickListener {
+public class EndActivity extends AppCompatActivity implements View.OnClickListener {
     private Button play, save;
     private TextView tv_score;
     private int record, score, level;

@@ -53,20 +53,21 @@
     </ScrollView>
     <TextView
             android:text="@string/record_string"
-            android:layout_width="194dp"
+            android:layout_width="230dp"
             android:background="#555555"
             android:textSize="25dp"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:layout_height="112dp" android:id="@+id/record"
+            android:layout_height="104dp" android:id="@+id/record"
             app:layout_constraintTop_toBottomOf="@+id/play_again"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintVertical_bias="0.502"/>
+            app:layout_constraintVertical_bias="0.19"/>
     <Button
             android:text="Сохранить счет в базу даннных"
-            android:layout_width="147dp"
-            android:layout_height="65dp" android:id="@+id/savetobd"
+            android:layout_width="230dp"
+            android:layout_height="77dp" android:id="@+id/savetobd"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/record" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/record" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.222"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

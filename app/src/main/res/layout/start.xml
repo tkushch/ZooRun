@@ -10,25 +10,18 @@
     android:orientation="vertical">
 
 
-    <ScrollView
+    <LinearLayout
             android:background="#0F4444"
-            android:alpha="0"
-            android:layout_width="390dp"
-            android:layout_height="523dp" android:layout_marginEnd="1dp"
+            android:alpha="1"
+            android:orientation="vertical"
+            android:layout_width="383dp"
+            android:layout_height="524dp" android:layout_marginEnd="1dp"
             android:layout_marginRight="1dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="1dp"
-            android:layout_marginStart="1dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="1dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="1dp"
-            app:layout_constraintVertical_bias="0.427" android:id="@+id/scrollView2"
-            app:layout_constraintHorizontal_bias="0.0">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/tv_info"
-                  android:textColor="#FFFFFF"
-                  android:text="@string/info"
-                  android:textSize="25dp"
-                  android:layout_margin="10dp">
-        </TextView>
-    </ScrollView>
+            app:layout_constraintVertical_bias="0.427"
+            android:id="@+id/myfragmentcontainer"/>
     <Button
 
             android:textSize="30dp"
@@ -63,15 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"/>
-    <Button
-            android:alpha="0"
-            android:enabled="false"
-            android:text="Назад"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/backinfo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:id="@+id/constraintlayo"

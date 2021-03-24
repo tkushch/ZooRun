@@ -7,12 +7,13 @@ import android.view.*;
 import android.widget.*;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class SaveRecordActivity extends Activity implements View.OnClickListener {
+public class SaveRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private int record, level;
 
     private TextView tvrecord;
