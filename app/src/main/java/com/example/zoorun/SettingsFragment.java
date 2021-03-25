@@ -8,12 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class StartPageFragment extends Fragment {
+public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -21,7 +19,7 @@ public class StartPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // менеджер компоновки, который позволяет получать доступ к layout с наших ресурсов
-        View view = inflater.inflate(R.layout.info, container, false);
+        View view = inflater.inflate(R.layout.settings, container, false);
         return view;
     }
 
