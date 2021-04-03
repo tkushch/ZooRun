@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView et_score, gasoline;
     private MediaPlayer collision_sound, money_sound;
     private float volume;
+    private boolean sound, vibration;
 
 
     @Override
@@ -60,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         md.setMa(this);
         et_score = findViewById(R.id.edit_text_score);
         gasoline = findViewById(R.id.gasoline);
+
+
+
+        sound = getIntent().getBooleanExtra("sound", true);
+        vibration = getIntent().getBooleanExtra("vibration", true);
 
         //Sounds
         volume = (float) (1 - (Math.log(100 - 55) / Math.log(100))); //max volume - curr volume
@@ -185,12 +191,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             findViewById(R.id.textView8).setAlpha(0f);
 
             //sound
-            collision_sound.start();
-
+            if (sound) {
+                collision_sound.start();
+            }
             //vibrate
-            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(VibrationEffect.createOneShot(300L, 10));
-
+            if (vibration) {
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(VibrationEffect.createOneShot(300L, 10));
+            }
 
 
         } else if (param == "end") {

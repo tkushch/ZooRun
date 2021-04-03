@@ -1,14 +1,12 @@
 package com.example.zoorun;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -20,7 +18,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private int level;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private Fragment fragment;
+    private SettingsFragment fragmentSettings;
+    private InfoFragment fragmentInfo;
+    private boolean sound = true;
+    private boolean vibration = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (v == start_button) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("level", level);
+            intent.putExtra("sound", sound);
+            intent.putExtra("vibration", vibration);
             startActivity(intent);
 
         } else if (v == info_button) {
@@ -101,35 +104,45 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("level", level);
+        outState.putBoolean("sound", sound);
+        outState.putBoolean("vibration", vibration);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         level = savedInstanceState.getInt("level", 1);
+        sound = savedInstanceState.getBoolean("sound", true);
+        vibration = savedInstanceState.getBoolean("vibration", true);
     }
 
     protected void addFragment(String which) {
         if (which.equals("info")) {
-            fragment = new InfoFragment();
+            fragmentInfo = new InfoFragment();
             info_button.setText(R.string.hide);
+            fragmentTransaction.add(R.id.myfragmentcontainer, fragmentInfo);
         } else if (which.equals("settings")) {
-            fragment = new SettingsFragment();
+            fragmentSettings = new SettingsFragment(sound, vibration);
             settings_button.setText(R.string.hide);
+            fragmentTransaction.add(R.id.myfragmentcontainer, fragmentSettings);
         }
-        fragmentTransaction.add(R.id.myfragmentcontainer, fragment);
         isFragmentOnScreen = !isFragmentOnScreen;
         fragmentTransaction.commit();
         fragmentTransaction.addToBackStack(null);
+
+
     }
 
     protected void removeFragment(String which) {
-        fragmentTransaction.remove(fragment);
-        if (which.equals("info")){
+
+        if (which.equals("info")) {
             info_button.setText(R.string.information_button);
-        }
-        else if (which.equals("settings")){
+            fragmentTransaction.remove(fragmentInfo);
+        } else if (which.equals("settings")) {
             settings_button.setText(R.string.settings_button);
+            sound = fragmentSettings.isSound();
+            vibration = fragmentSettings.isVibration();
+            fragmentTransaction.remove(fragmentSettings);
         }
         isFragmentOnScreen = !isFragmentOnScreen;
         fragmentTransaction.commit();
