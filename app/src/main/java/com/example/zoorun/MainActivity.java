@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             savescore();
             Intent intent = new Intent(this, StartActivity.class);
             intent.putExtra("level", level);
+            intent.putExtra("sound", sound);
+            intent.putExtra("vibration", vibration);
             startActivity(intent);
         }
 
@@ -207,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("score", score);
             intent.putExtra("level", level);
             startActivity(intent);
-        } else if (param == "money") {
+        } else if (param == "money" && sound) {
             if (money_sound.isPlaying()){
                 money_sound.seekTo(0);
             }

@@ -4,14 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements ToggleButton.OnCheckedChangeListener {
     private boolean sound, vibration;
     private ToggleButton toggleButtonSound, toggleButtonVibration;
+    private View view;
 
     public SettingsFragment(boolean sound, boolean vibration) {
         this.sound = sound;
@@ -33,9 +35,11 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // менеджер компоновки, который позволяет получать доступ к layout с наших ресурсов
-        View view = inflater.inflate(R.layout.settings, container, false);
+        view = inflater.inflate(R.layout.settings, container, false);
         toggleButtonSound = view.findViewById(R.id.toggleButtonSound);
         toggleButtonVibration = view.findViewById(R.id.toggleButtonVibration);
+        toggleButtonSound.setOnCheckedChangeListener(this);
+        toggleButtonVibration.setOnCheckedChangeListener(this);
         toggleButtonSound.setChecked(sound);
         toggleButtonVibration.setChecked(vibration);
         return view;
@@ -60,17 +64,16 @@ public class SettingsFragment extends Fragment {
         return sound;
     }
 
-    public void setSound(boolean sound) {
-        this.sound = sound;
-        toggleButtonSound.setChecked(sound);
-    }
-
     public boolean isVibration() {
         return vibration;
     }
 
-    public void setVibration(boolean vibration) {
-        this.vibration = vibration;
-        toggleButtonVibration.setChecked(vibration);
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView == toggleButtonSound) {
+            sound = isChecked;
+        } else if (buttonView == toggleButtonVibration) {
+            vibration = isChecked;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.zoorun;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -38,9 +40,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         settings_button.setOnClickListener(this);
         fragmentManager = getSupportFragmentManager();
         isFragmentOnScreen = false;
-
-
         level = getIntent().getIntExtra("level", 1);
+        loadSavedPreferences();
         seekBar.setProgress(level);
 
     }
@@ -104,16 +105,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("level", level);
-        outState.putBoolean("sound", sound);
-        outState.putBoolean("vibration", vibration);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         level = savedInstanceState.getInt("level", 1);
-        sound = savedInstanceState.getBoolean("sound", true);
-        vibration = savedInstanceState.getBoolean("vibration", true);
     }
 
     protected void addFragment(String which) {
@@ -143,10 +140,25 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             sound = fragmentSettings.isSound();
             vibration = fragmentSettings.isVibration();
             fragmentTransaction.remove(fragmentSettings);
+            savePreferences("sound", sound);
+            savePreferences("vibration", vibration);
         }
         isFragmentOnScreen = !isFragmentOnScreen;
         fragmentTransaction.commit();
         fragmentTransaction.addToBackStack(null);
+    }
+
+    protected void loadSavedPreferences(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sound = sharedPreferences.getBoolean("sound", true);
+        vibration = sharedPreferences.getBoolean("vibration", true);
+    }
+    protected void savePreferences(String key, boolean value) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
     }
 
 
