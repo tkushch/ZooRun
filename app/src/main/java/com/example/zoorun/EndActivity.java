@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class EndActivity extends AppCompatActivity implements View.OnClickListener {
     private Button play, save;
     private TextView tv_score;
-    private int record, score, level;
+    private int record, score;
 
 
     @Override
@@ -27,7 +27,6 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
         save.setOnClickListener(this);
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
-        level = intent.getIntExtra("level", 1);
         tv_score = findViewById(R.id.text_view_results);
         tv_score.setText(tv_score.getText() + " " + String.valueOf(score));
         record = 0;
@@ -68,13 +67,10 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v == play) {
             Intent intent = new Intent(this, StartActivity.class);
-            intent.putExtra("level", level);
             startActivity(intent);
-        }
-        else if (v == save){
+        } else if (v == save) {
             Intent intent = new Intent(this, SaveRecordActivity.class);
             intent.putExtra("record", score);
-            intent.putExtra("level", level);
             startActivity(intent);
         }
     }
@@ -82,7 +78,6 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, StartActivity.class);
-        intent.putExtra("level", level);
         startActivity(intent);
     }
 

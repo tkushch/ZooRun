@@ -9,18 +9,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class DBRecords {
-    private static final String DATABASE_NAME = "simple.db";
-    private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "tableRecords";
+    public static final String DATABASE_NAME = "simple.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String TABLE_NAME = "tableRecords";
 
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NAME = "Name";
-    private static final String COLUMN_VALUE = "Value";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NAME = "Name";
+    public static final String COLUMN_VALUE = "Value";
 
 
-    private static final int NUM_COLUMN_ID = 0;
-    private static final int NUM_COLUMN_NAME = 1;
-    private static final int NUM_COLUMN_VALUE = 2;
+    public static final int NUM_COLUMN_ID = 0;
+    public static final int NUM_COLUMN_NAME = 1;
+    public static final int NUM_COLUMN_VALUE = 2;
 
     private SQLiteDatabase mDataBase;
 

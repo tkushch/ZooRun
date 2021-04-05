@@ -3,6 +3,7 @@ package com.example.zoorun;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -47,9 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         back.setOnClickListener(this);
 
         seekBar_level = findViewById(R.id.seekBar_level);
-        level = getIntent().getIntExtra("level", 1);
+        loadSavedPreferences(); //level, sound, vibration
         md.setLEVEL(level);
-
 
         frameLayout = findViewById(R.id.frame_Layout);
         frameLayout.setBackgroundColor(Color.WHITE);
@@ -61,11 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         md.setMa(this);
         et_score = findViewById(R.id.edit_text_score);
         gasoline = findViewById(R.id.gasoline);
-
-
-
-        sound = getIntent().getBooleanExtra("sound", true);
-        vibration = getIntent().getBooleanExtra("vibration", true);
 
         //Sounds
         volume = (float) (1 - (Math.log(100 - 55) / Math.log(100))); //max volume - curr volume
@@ -89,12 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             md.setPause(true);
             to_pause_screen(getString(R.string.taptoplay));
         }
-        if (v == back){
+        if (v == back) {
             savescore();
             Intent intent = new Intent(this, StartActivity.class);
-            intent.putExtra("level", level);
-            intent.putExtra("sound", sound);
-            intent.putExtra("vibration", vibration);
             startActivity(intent);
         }
 
@@ -207,13 +199,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             md.setOFF(true);
             Intent intent = new Intent(MainActivity.this, EndActivity.class);
             intent.putExtra("score", score);
-            intent.putExtra("level", level);
             startActivity(intent);
         } else if (param == "money" && sound) {
-            if (money_sound.isPlaying()){
+            if (money_sound.isPlaying()) {
                 money_sound.seekTo(0);
-            }
-            else{
+            } else {
                 money_sound.start();
             }
 
@@ -221,9 +211,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void setGasoline(int g){
+    public void setGasoline(int g) {
         float gas = g * 0.12f;
-        int px1 = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gas, getResources().getDisplayMetrics());
+        int px1 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gas, getResources().getDisplayMetrics());
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gasoline.getLayoutParams();
         params.width = px1;
         this.gasoline.setLayoutParams(new ConstraintLayout.LayoutParams(params));
@@ -234,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         et_score.setText(String.valueOf(score));
     }
 
-    public void savescore(){
+    public void savescore() {
         int score = Integer.parseInt(String.valueOf(et_score.getText()));
         int record = 0;
 
@@ -264,8 +254,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
+
     @Override
     public void onBackPressed() {
+    }
+
+    protected void loadSavedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
+        level = sharedPreferences.getInt("level", 1);
+        sound = sharedPreferences.getBoolean("sound", true);
+        vibration = sharedPreferences.getBoolean("vibration", true);
     }
 
 }

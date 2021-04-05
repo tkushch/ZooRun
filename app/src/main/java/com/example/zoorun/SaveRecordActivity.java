@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class SaveRecordActivity extends AppCompatActivity implements View.OnClickListener {
-    private int record, level;
+    private int record;
 
     private TextView tvrecord;
     private EditText editTextName;
@@ -29,7 +29,6 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_record);
-        level = getIntent().getIntExtra("level", 1);
         setAll();
     }
 
@@ -89,7 +88,6 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         } else if (v == back) {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("score", record);
-            intent.putExtra("level", level);
             startActivity(intent);
         } else if (v == dbClearAll) {
             mDBConnector.deleteAll();
@@ -110,9 +108,9 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.bdmenudeleteitem:
-                mDBConnector.delete (info.id);
+                mDBConnector.delete(info.id);
                 updateList();
                 return true;
             default:
@@ -120,7 +118,7 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void updateList(){
+    private void updateList() {
         ArrayList<Record> records = mDBConnector.selectAll();
         Collections.sort(records, new Comparator<Record>() {
             @Override
