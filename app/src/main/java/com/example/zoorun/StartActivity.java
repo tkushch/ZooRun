@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private Button start_button, info_button, settings_button;

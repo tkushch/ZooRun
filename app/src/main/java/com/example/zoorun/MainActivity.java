@@ -23,7 +23,6 @@ import java.util.Scanner;
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnCollisionListener, OnScoreListener {
-    private SeekBar seekBar_level;
     private int level;
     private FrameLayout frameLayout;
     private Button run, pause, back;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
 
-        seekBar_level = findViewById(R.id.seekBar_level);
         loadSavedPreferences(); //level, sound, vibration
         md.setLEVEL(level);
 
@@ -261,7 +259,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void loadSavedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        level = sharedPreferences.getInt("level", 1);
+        level = 1;
+//        level = sharedPreferences.getInt("level", 1);
         sound = sharedPreferences.getBoolean("sound", true);
         vibration = sharedPreferences.getBoolean("vibration", true);
     }
