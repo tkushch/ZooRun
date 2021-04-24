@@ -259,8 +259,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void loadSavedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        level = 1;
-//        level = sharedPreferences.getInt("level", 1);
+//        level = 1;
+        level = sharedPreferences.getInt("level", 1);
         sound = sharedPreferences.getBoolean("sound", true);
         vibration = sharedPreferences.getBoolean("vibration", true);
     }

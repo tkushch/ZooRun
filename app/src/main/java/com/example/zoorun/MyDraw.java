@@ -25,7 +25,7 @@ public class MyDraw extends View {
     private Coin[] coins;
     private int coin_delay = 0;
     private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin1);
-    private Bitmap hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car2);
+    private Bitmap hero_image;
     private boolean need_coin = true;
     private Paint paint = new Paint();
     private boolean isFirst;
@@ -84,12 +84,10 @@ public class MyDraw extends View {
                 score++;
                 gasoline -= 2;
 
-            }
-            else if (LEVEL == 0.0065f){
+            } else if (LEVEL == 0.0065f) {
                 score += 2;
                 gasoline -= 2;
-            }
-            else if (LEVEL == 0.009f){
+            } else if (LEVEL == 0.009f) {
                 score += 3;
                 gasoline -= 2;
             }
@@ -119,11 +117,10 @@ public class MyDraw extends View {
                     }
                 }
             }
-            if (gasoline > 0){
+            if (gasoline > 0) {
                 ma.setGasoline(gasoline);
-            }
-            else{
-                collision = new Collision(hero.getX(),hero.getY(), 1f);
+            } else {
+                collision = new Collision(hero.getX(), hero.getY(), 1f);
                 was_collision = true;
                 onCollisionListener.onCollision(score, "begin");
             }
@@ -161,19 +158,30 @@ public class MyDraw extends View {
     }
 
     public void setLEVEL(int level) {
+        LEVEL = 0.004f;
         switch (level) {
             case 1:
-                LEVEL = 0.004f;
+                hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car1);
                 break;
             case 2:
-                LEVEL = 0.0065f;
+                hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car2);
                 break;
             case 3:
-                LEVEL = 0.009f;
+                hero_image = BitmapFactory.decodeResource(getResources(), R.drawable.car3);
                 break;
-
         }
+//            case 1:
+//                LEVEL = 0.004f;
+//                break;
+//            case 2:
+//                LEVEL = 0.0065f;
+//                break;
+//            case 3:
+//                LEVEL = 0.009f;
+//                break;
+
     }
+
 
     public void swipe_left() {
         hero.swipe_left();
@@ -325,9 +333,9 @@ public class MyDraw extends View {
         if (checker == 4) {
             coins[id].setRelevance(false);
             score += 100;
-            if (gasoline < 1000){
+            if (gasoline < 1000) {
                 gasoline += 400;
-                if (gasoline > 1000){
+                if (gasoline > 1000) {
                     gasoline = 1000;
                 }
             }
@@ -378,6 +386,7 @@ public class MyDraw extends View {
         public float getR() {
             return r;
         }
+
     }
 
 
