@@ -53,7 +53,7 @@ public class MyDraw extends View {
         //fill
         if (isFirst) {
             isFirst = false;
-            fill();
+            fill(canvas);
         }
 
         //draw
@@ -141,9 +141,9 @@ public class MyDraw extends View {
         }
     }
 
-    public void fill() {
+    public void fill(Canvas canvas) {
         ground = new Ground(LINES_LENGTH, COUNT_OF_LINES, DISTANCE, LEVEL);
-        hero = new Hero(LEVEL, hero_image);
+        hero = new Hero(hero_image, canvas);
         barriers = new Barrier[100];
         coins = new Coin[500];
 

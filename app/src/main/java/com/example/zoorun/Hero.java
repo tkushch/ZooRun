@@ -19,8 +19,10 @@ public class Hero implements Drawable {
     private int way = 1; // 0, 1 or 2;
     private Bitmap image;
 
-    public Hero(float level, Bitmap yourBitmap) {
+    public Hero(Bitmap yourBitmap, Canvas canvas) {
         swipe_v = 0.5f * 10 * 1000f;
+        int w = canvas.getWidth();
+        int h = canvas.getHeight();
         image = Bitmap.createScaledBitmap(yourBitmap, (int) (yourBitmap.getWidth() * 0.2), (int) (yourBitmap.getHeight() * 0.18), true);
     }
 
