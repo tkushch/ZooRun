@@ -25,7 +25,8 @@ public class MyDraw extends View {
     private Coin[] coins;
     private int coin_delay = 0;
     private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin1);
-    private Bitmap hero_image;
+    private Bitmap hero_image; // определяется в setLEVEL
+    private Bitmap barrier_image = BitmapFactory.decodeResource(getResources(), R.drawable.wall);
     private boolean need_coin = true;
     private Paint paint = new Paint();
     private boolean isFirst;
@@ -36,7 +37,7 @@ public class MyDraw extends View {
     private float DISTANCE = 3f; // расстояние между абсциссами линий
     private float LEVEL = 0.0065f; // скорость    (от 0.003 до 0.007)
     private float LINES_LENGTH = DISTANCE * 3f; // длина каждой линии
-
+    private Canvas canvas;
 
     public MyDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,6 +47,7 @@ public class MyDraw extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        this.canvas = canvas;
         super.onDraw(canvas);
         RX = canvas.getWidth() / 1000f; // условные единицы экрана 1000*1000
         RY = canvas.getHeight() / 1000f; // условные единицы экрана 1000*1000
@@ -232,7 +234,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    barriers[i] = new Barrier(w1, LEVEL);
+                    barriers[i] = new Barrier(canvas, barrier_image, w1, LEVEL);
                     break;
                 }
             }
@@ -244,7 +246,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    barriers[i] = new Barrier(w2, LEVEL);
+                    barriers[i] = new Barrier(canvas, barrier_image, w2, LEVEL);
                     break;
                 }
             }

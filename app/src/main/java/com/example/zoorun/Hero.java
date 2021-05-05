@@ -3,7 +3,7 @@ package com.example.zoorun;
 import android.graphics.*;
 
 public class Hero implements Drawable {
-    private float radius_x = 67.5f, radius_y = 39f; //было 90 и 52
+    private float radius_x, radius_y;
     private float x = 500f, y = 750f; // центр
     private float y_up = y - 10f, y_down = y + 10f;
     private float left_way_x = KN_line(y), center_way_x = x, right_way_x = PM_line(y);
@@ -18,14 +18,20 @@ public class Hero implements Drawable {
     private float swipe_target = center_way_x;
     private int way = 1; // 0, 1 or 2;
     private Bitmap image;
+    private int w, h;
 
     public Hero(Bitmap yourBitmap, Canvas canvas) {
         swipe_v = 0.5f * 10 * 1000f;
-        int w = canvas.getWidth();
-        int h = canvas.getHeight();
-        image = Bitmap.createScaledBitmap(yourBitmap, (int) (yourBitmap.getWidth() * 0.2), (int) (yourBitmap.getHeight() * 0.18), true);
+        w = (int) (yourBitmap.getWidth() * (canvas.getWidth() / 5400f));
+        h = (int) (1.8f * w);
+        image = Bitmap.createScaledBitmap(yourBitmap, w, h, true);
+        float RX, RY;
+        RX = canvas.getWidth() / 1000f;
+        RY = canvas.getHeight() / 1000f;
+        radius_x = w / 2f / RX;
+        radius_y = h / 2f / RY;
+//        image = Bitmap.createScaledBitmap(yourBitmap, (int) (yourBitmap.getWidth() * 0.2), (int) (yourBitmap.getHeight() * 0.18), true);
     }
-
 
 
     public void jump() {
@@ -66,6 +72,8 @@ public class Hero implements Drawable {
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.YELLOW);
         canvas.drawBitmap(image, RX * (x - radius_x), RY * (y - radius_y), paint);
+
+//        canvas.drawBitmap(image, RX * (x - radius_x), RY * (y - radius_y), paint);
         //canvas.drawRect(RX * (x - radius_x), RY * (y - radius_y), RX * (x + radius_x), RY * (y + radius_y), paint);
     }
 
