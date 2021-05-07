@@ -39,6 +39,7 @@
     <string name="settings_button">Настройки</string>
     <string name="hide">Спрятать</string>
     <string name="sound">Звук</string>
+    <string name="saved">Сохранено</string>
 
 
 </resources>

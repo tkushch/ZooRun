@@ -63,7 +63,15 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
             }
             if (flag) {
                 mDBConnector.insert(nickname, record);
-                editTextName.setText("Сохранено");
+                editTextName.setText(R.string.saved);
+
+                //Toast
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        R.string.saved,
+                        duration);
+                toast.show();
+
             } else {
                 editTextName.setText("Недопустимое имя");
             }
