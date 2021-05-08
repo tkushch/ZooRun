@@ -24,11 +24,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_margin="5dp"
             android:layout_width="match_parent"
-            android:background="#0F440F"
+
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+        android:background="#333086"
     >
         <TextView
                 android:textColor="@android:color/white"
@@ -64,5 +65,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/textView10"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            style="@style/MyStyleButton"
+            android:id="@+id/buttonhide2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hide"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

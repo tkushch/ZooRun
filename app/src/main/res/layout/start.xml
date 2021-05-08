@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layo1"
-    android:background="#0F4444"
+    style="@style/MyStyleBackground"
     android:orientation="vertical">
 
 
@@ -14,8 +14,6 @@
     <Button
             android:elevation="1dp"
             android:textSize="30dp"
-            android:textColor="#ffffff"
-            android:background="#555555"
             android:id="@+id/start_button"
             android:layout_width="234dp"
             android:layout_height="68dp"
@@ -24,7 +22,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.37"/>
+            app:layout_constraintTop_toTopOf="parent"
+        style="@style/MyStyleButton"
+        app:layout_constraintVertical_bias="0.37"/>
     <TextView
             android:gravity="center"
             android:text="Цвет машины"
@@ -36,17 +36,24 @@
             app:layout_constraintTop_toBottomOf="@+id/start_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.19"/>
+
     <Button
-            android:text="@string/information_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/info"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.13"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"/>
+        android:id="@+id/info"
+        style="@style/MyStyleInfoButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
             android:orientation="vertical"
             android:id="@+id/constraintlayo"
             android:layout_width="220dp"
@@ -55,46 +62,78 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.18">
 
-        <TextView
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:textColor="#ffffff"
-                android:gravity="center"
-                android:background="#FFFF00"
-                android:textSize="25dp"
-                android:text=""
-                android:layout_width="40dp"
-                android:layout_height="wrap_content" android:id="@+id/textView2"
-                app:layout_constraintEnd_toStartOf="@+id/textView3" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/seekBar_level"
-                app:layout_constraintHorizontal_bias="0.0"/>
-        <TextView
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/seekBar_level"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:textColor="#ffffff"
-                android:gravity="center"
-                android:background="#e611e4"
-                android:textSize="25dp"
-                android:text=""
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/seekBar_level"/>
-        <TextView
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:textColor="#ffffff"
+                android:layout_margin="5dp"
+                android:background="#FFFF00"
                 android:gravity="center"
-                android:background="#18d827"
-                android:textSize="25dp"
                 android:text=""
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/seekBar_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+
+                android:id="@+id/textView3"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content" android:id="@+id/textView4"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/seekBar_level"
-                app:layout_constraintHorizontal_bias="1.0"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="#e611e4"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
+        </FrameLayout>
+
+        <FrameLayout
+
+
+            android:layout_margin="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/seekBar_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="#18d827"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
+        </FrameLayout>
         <SeekBar
                 android:progress="1"
                 android:min="1"
@@ -107,23 +146,34 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-            android:elevation="2dp"
-            android:alpha="1"
-            android:orientation="vertical"
-            android:layout_width="363dp"
-            android:layout_height="562dp" android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="1dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="1dp"
-            android:id="@+id/myfragmentcontainer"/>
+        android:id="@+id/myfragmentcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="200dp"
+        android:alpha="1"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-            android:text="@string/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/settings_button"
-            app:layout_constraintStart_toEndOf="@+id/info" app:layout_constraintBottom_toBottomOf="@+id/info"
-            app:layout_constraintTop_toTopOf="@+id/info" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.69"/>
+        android:id="@+id/settings_button"
+        style="@style/MyStyleSettingButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/info"
+
+        app:layout_constraintTop_toTopOf="@+id/info" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

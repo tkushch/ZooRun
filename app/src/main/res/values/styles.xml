@@ -16,4 +16,21 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyStyleButton">
+        <item name="android:background">#85004B</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="MyStyleBackground">
+        <item name="android:background">#412C84</item>
+    </style>
+
+    <style name="MyStyleSettingButton">
+        <item name="android:background">@drawable/ic_baseline_settings_24</item>
+    </style>
+
+    <style name="MyStyleInfoButton">
+        <item name="android:background">@drawable/ic_baseline_info_24</item>
+    </style>
+
 </resources>

@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.example.zoorun.fragments.InfoFragment;
 import com.example.zoorun.fragments.SettingsFragment;
+import com.example.zoorun.interfaces.HidePressedListener;
 
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, HidePressedListener {
     private Button start_button, info_button, settings_button;
     private boolean isFragmentOnScreen;
     private SeekBar seekBar;
@@ -43,6 +46,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         isFragmentOnScreen = false;
         loadSavedPreferences(); //level, sound, vibration
         seekBar.setProgress(level);
+
 
     }
 
@@ -77,6 +81,25 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 info_button.setEnabled(true);
             }
         }
+    }
+
+
+    @Override
+    public void hide(String which) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        switch (which) {
+            case "info":
+                settings_button.setAlpha(1);
+                settings_button.setEnabled(true);
+                break;
+            case "settings":
+                info_button.setAlpha(1);
+                info_button.setEnabled(true);
+                break;
+        }
+        removeFragment(which);
+
+
     }
 
     @Override
@@ -119,11 +142,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void addFragment(String which) {
         if (which.equals("info")) {
             fragmentInfo = new InfoFragment();
-            info_button.setText(R.string.hide);
+            fragmentInfo.setHidePressedListener(this);
             fragmentTransaction.add(R.id.myfragmentcontainer, fragmentInfo);
         } else if (which.equals("settings")) {
             fragmentSettings = new SettingsFragment(sound, vibration);
-            settings_button.setText(R.string.hide);
+            fragmentSettings.setHidePressedListener(this);
             fragmentTransaction.add(R.id.myfragmentcontainer, fragmentSettings);
         }
         isFragmentOnScreen = !isFragmentOnScreen;
@@ -136,10 +159,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void removeFragment(String which) {
 
         if (which.equals("info")) {
-            info_button.setText(R.string.information_button);
+
             fragmentTransaction.remove(fragmentInfo);
         } else if (which.equals("settings")) {
-            settings_button.setText(R.string.settings_button);
+
             sound = fragmentSettings.isSound();
             vibration = fragmentSettings.isVibration();
             fragmentTransaction.remove(fragmentSettings);
