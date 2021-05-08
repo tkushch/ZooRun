@@ -1,13 +1,12 @@
 package com.example.zoorun;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.*;
 import android.widget.*;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.zoorun.dataBase.DBRecords;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -10,10 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.example.zoorun.fragments.InfoFragment;
+import com.example.zoorun.fragments.SettingsFragment;
 
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {

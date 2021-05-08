@@ -1,11 +1,10 @@
 package com.example.zoorun.bin;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.example.zoorun.Drawable;
-import com.example.zoorun.Movable;
+import com.example.zoorun.interfaces.Drawable;
+import com.example.zoorun.interfaces.Movable;
 
 public class Line_ implements Drawable, Movable {
     private float x0, y0, x1, y1, dx, dy;

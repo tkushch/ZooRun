@@ -3,8 +3,8 @@ package com.example.zoorun.bin;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import com.example.zoorun.Drawable;
-import com.example.zoorun.Movable;
+import com.example.zoorun.interfaces.Drawable;
+import com.example.zoorun.interfaces.Movable;
 
 public class Ground1 implements Movable, Drawable {
     private Line1[] lines;

@@ -1,4 +1,4 @@
-package com.example.zoorun;
+package com.example.zoorun.interfaces;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

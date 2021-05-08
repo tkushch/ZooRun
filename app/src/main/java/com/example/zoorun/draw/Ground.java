@@ -1,8 +1,10 @@
-package com.example.zoorun;
+package com.example.zoorun.draw;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import com.example.zoorun.interfaces.Drawable;
+import com.example.zoorun.interfaces.Movable;
 
 public class Ground implements Movable, Drawable {
     private float k1 = 4.3f, k2 = 4.3f, k3 = 4.3f;

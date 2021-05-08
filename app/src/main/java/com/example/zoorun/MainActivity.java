@@ -1,6 +1,5 @@
 package com.example.zoorun;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +11,11 @@ import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import com.example.zoorun.interfaces.OnCollisionListener;
+import com.example.zoorun.interfaces.OnScoreListener;
 
 import java.io.*;
 import java.util.Scanner;

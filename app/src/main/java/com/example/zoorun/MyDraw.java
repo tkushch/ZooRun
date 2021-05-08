@@ -8,6 +8,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import com.example.zoorun.MainActivity;
+import com.example.zoorun.R;
+import com.example.zoorun.draw.Barrier;
+import com.example.zoorun.draw.Coin;
+import com.example.zoorun.draw.Ground;
+import com.example.zoorun.draw.Hero;
+import com.example.zoorun.interfaces.Drawable;
+import com.example.zoorun.interfaces.Movable;
+import com.example.zoorun.interfaces.OnCollisionListener;
+import com.example.zoorun.interfaces.OnScoreListener;
 
 
 public class MyDraw extends View {

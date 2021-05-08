@@ -1,4 +1,4 @@
-package com.example.zoorun;
+package com.example.zoorun.draw;
 
 import android.graphics.Color;
 

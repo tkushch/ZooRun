@@ -1,4 +1,4 @@
-package com.example.zoorun;
+package com.example.zoorun.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.zoorun.R;
 
 public class SettingsFragment extends Fragment implements ToggleButton.OnCheckedChangeListener {
     private boolean sound, vibration;

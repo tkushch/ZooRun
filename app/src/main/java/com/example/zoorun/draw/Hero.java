@@ -1,6 +1,7 @@
-package com.example.zoorun;
+package com.example.zoorun.draw;
 
 import android.graphics.*;
+import com.example.zoorun.interfaces.Drawable;
 
 public class Hero implements Drawable {
     private float radius_x, radius_y;
@@ -16,23 +17,41 @@ public class Hero implements Drawable {
     private boolean start_of_swipe;
     private float swipe_v; // swipe velocity (by level)
     private float swipe_target = center_way_x;
-    private int way = 1; // 0, 1 or 2;
     private Bitmap image;
+    private Bitmap initialImage;
+    private Canvas canvas;
     private int w, h;
 
-    public Hero(Bitmap yourBitmap, Canvas canvas) {
+    private final int LEFT_WAY = 0;
+    private final int CENTER_WAY = 1;
+    private final int RIGHT_WAY = 2;
+
+    private int way = CENTER_WAY;
+
+
+    private final int ROTATE_LEFT = 0;
+    private final int ROTATE_STRAIGHT = 1;
+    private final int ROTATE_RIGHT = 2;
+
+
+    public Hero(Bitmap yourImage, Canvas canvas) {
         swipe_v = 0.5f * 10 * 1000f;
-        w = (int) (yourBitmap.getWidth() * (canvas.getWidth() / 5400f));
+        this.canvas = canvas;
+        w = (int) (yourImage.getWidth() * (canvas.getWidth() / 5400f));
         h = (int) (1.8f * w);
-        image = Bitmap.createScaledBitmap(yourBitmap, w, h, true);
+        image = Bitmap.createScaledBitmap(yourImage, w, h, true);
+        initialImage = image;
         float RX, RY;
         RX = canvas.getWidth() / 1000f;
         RY = canvas.getHeight() / 1000f;
         radius_x = w / 2f / RX;
         radius_y = h / 2f / RY;
-//        image = Bitmap.createScaledBitmap(yourBitmap, (int) (yourBitmap.getWidth() * 0.2), (int) (yourBitmap.getHeight() * 0.18), true);
+//        image = Bitmap.createScaledBitmap(initialImage, (int) (initialImage.getWidth() * 0.2), (int) (initialImage.getHeight() * 0.18), true);
     }
 
+    public void setImage(){
+        image = initialImage;
+    }
 
     public void jump() {
         if (step_delay < delay) {
@@ -77,6 +96,33 @@ public class Hero implements Drawable {
         //canvas.drawRect(RX * (x - radius_x), RY * (y - radius_y), RX * (x + radius_x), RY * (y + radius_y), paint);
     }
 
+    // Image rotate: left, straight, right = 0, 1, 2
+    public void rotateBitmap(int param) {
+        float degrees = 0f;
+        boolean need = true;
+        switch (param) {
+            case ROTATE_LEFT:
+                degrees = -7f;
+                break;
+            case ROTATE_STRAIGHT:
+                setImage();
+                need = false;
+                break;
+            case ROTATE_RIGHT:
+                degrees = 7f;
+                break;
+        }
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        Matrix matrix = new Matrix();
+        matrix.preRotate(degrees);
+        if (need) {
+            image = Bitmap.createBitmap(image, 0, 0, width, height, matrix, true);
+        }
+    }
+
     public void swipe_left() {
         if (inSwipe) {
         } else {
@@ -87,10 +133,12 @@ public class Hero implements Drawable {
                 swipe_target = left_way_x;
                 swipe_v = -(Math.abs(swipe_v));
                 start_of_swipe = true;
+                rotateBitmap(ROTATE_RIGHT);
             } else if (x == right_way_x) {
                 swipe_target = center_way_x;
                 swipe_v = -(Math.abs(swipe_v));
                 start_of_swipe = true;
+                rotateBitmap(ROTATE_STRAIGHT);
             }
         }
     }
@@ -105,10 +153,12 @@ public class Hero implements Drawable {
                 swipe_target = right_way_x;
                 swipe_v = (Math.abs(swipe_v));
                 start_of_swipe = true;
+                rotateBitmap(ROTATE_LEFT);
             } else if (x == left_way_x) {
                 swipe_target = center_way_x;
                 swipe_v = (Math.abs(swipe_v));
                 start_of_swipe = true;
+                rotateBitmap(ROTATE_STRAIGHT);
             }
         }
     }
@@ -126,13 +176,13 @@ public class Hero implements Drawable {
     }
 
     public int way_by_target(float swipe_target) {
-        int way = 1;
+        int way = CENTER_WAY;
         if (swipe_target == left_way_x) {
-            way = 0;
+            way = LEFT_WAY;
         } else if (swipe_target == center_way_x) {
-            way = 1;
+            way = CENTER_WAY;
         } else if (swipe_target == right_way_x) {
-            way = 2;
+            way = RIGHT_WAY;
         }
         return way;
     }
