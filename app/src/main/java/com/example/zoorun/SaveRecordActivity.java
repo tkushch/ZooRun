@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.view.*;
 import android.widget.*;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.zoorun.dataBase.DBRecords;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +26,8 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
     private DBRecords mDBConnector;
     private Context mContext;
     private MyAdapter myAdapter;
+    private DatabaseReference mFireDataBase;
+    private String RECORDS_KEY = "Records";
 
 
     @Override
@@ -29,6 +35,7 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_record);
         setAll();
+        mFireDataBase = FirebaseDatabase.getInstance("https://cardriving-519ac-default-rtdb.firebaseio.com/").getReference(RECORDS_KEY);
     }
 
     protected void setAll() {
@@ -61,6 +68,10 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
                 flag = false;
             }
             if (flag) {
+                //db in GoogleFireBase
+                mFireDataBase.push().setValue(new User(nickname, record));
+
+                //db on device
                 mDBConnector.insert(nickname, record);
                 editTextName.setText(R.string.saved);
 
@@ -135,5 +146,31 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         });
         myAdapter.setArrayMyData(records);
         myAdapter.notifyDataSetChanged();
+    }
+
+    public class User {
+        private String name;
+        private int value;
+
+        public User(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
     }
 }

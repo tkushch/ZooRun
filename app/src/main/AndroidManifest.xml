@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.zoorun">
+    package="com.example.zoorun">
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@drawable/app_icon"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/app_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".SaveRecordActivity"
+            android:label="DataBase"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".StartActivity"
             android:label="@string/app_name"
-            android:roundIcon="@drawable/app_icon"
-            android:supportsRtl="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity
-                android:label="DataBase"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:name=".SaveRecordActivity"
-        >
-        </activity>
-        <activity
-                android:name=".StartActivity"
-                android:label="@string/app_name"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".MainActivity"
-                android:label="@string/title_activity_main_page"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".EndActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".EndActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
 
     </application>

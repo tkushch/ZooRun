@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int record = 0;
 
         //record
-        File file = new File(getDataDir(), "record.txt");
+        File file = new File(getFilesDir(), "record.txt");
 
         try {
             Scanner sc = new Scanner(file);
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         record = Math.max(score, record);
 
         file.delete();
-        file = new File(getDataDir(), "record.txt");
+        file = new File(getFilesDir(), "record.txt");
 
         try {
             PrintWriter pv = new PrintWriter(new FileWriter(file));

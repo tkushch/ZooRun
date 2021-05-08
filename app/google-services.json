@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1085692699796",
+    "project_id": "cardriving-519ac",
+    "storage_bucket": "cardriving-519ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085692699796:android:a76edfcb9d7ea474c90081",
+        "android_client_info": {
+          "package_name": "com.example.zoorun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085692699796-im6i7mt9q3907t59pmegoq0i63csr56s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC26_NYpf-sUEkqnQsRJjfhu-PsLFv_8bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085692699796-im6i7mt9q3907t59pmegoq0i63csr56s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

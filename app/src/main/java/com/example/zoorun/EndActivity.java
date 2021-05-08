@@ -1,11 +1,16 @@
 package com.example.zoorun;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.*;
@@ -17,6 +22,8 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
     private int record, score;
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +39,7 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
         record = 0;
 
         //record
-        File file = new File(getDataDir(), "record.txt");
+        File file = new File(getFilesDir(), "record.txt");
 
         try {
             Scanner sc = new Scanner(file);
@@ -45,7 +52,7 @@ public class EndActivity extends AppCompatActivity implements View.OnClickListen
         record = Math.max(score, record);
 
         file.delete();
-        file = new File(getDataDir(), "record.txt");
+        file = new File(getFilesDir(), "record.txt");
 
         try {
             PrintWriter pv = new PrintWriter(new FileWriter(file));

@@ -102,14 +102,14 @@ public class Hero implements Drawable {
         boolean need = true;
         switch (param) {
             case ROTATE_LEFT:
-                degrees = -7f;
+                degrees = -5f;
                 break;
             case ROTATE_STRAIGHT:
                 setImage();
                 need = false;
                 break;
             case ROTATE_RIGHT:
-                degrees = 7f;
+                degrees = 5f;
                 break;
         }
 
