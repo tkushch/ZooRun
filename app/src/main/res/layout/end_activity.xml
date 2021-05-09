@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EndActivity"
-    android:background="#0f4444">
+    style="@style/MyStyleBackground">
 
     <Button
         android:id="@+id/play_again"
-        android:layout_width="139dp"
-        android:layout_height="73dp"
-        android:textColor="#ffffff"
-        android:background="#555555"
-        android:text="Играть"
+        android:layout_width="235dp"
+        android:layout_height="70dp"
+        style="@style/MyStyleButton"
+        android:text="@string/play"
         android:gravity="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,40 +21,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ScrollView
-        android:layout_width="367dp"
-        android:layout_height="135dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/text_view_results"
+        style="@style/textStandart"
+        android:layout_width="235dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:text="@string/your_score"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/play_again"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.110000014">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_view_results"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="#555555"
-                android:text=" Вы проиграли\n Ваш счет:"
-                android:textColor="#ffffff"
-                android:textSize="25dp"
-                app:layout_constraintBottom_toTopOf="@+id/play_again"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
-    </ScrollView>
     <TextView
             android:text="@string/record_string"
             android:layout_width="230dp"
-            android:background="#555555"
-            android:textSize="25dp"
+            style="@style/textStandart"
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_height="104dp" android:id="@+id/record"
@@ -64,10 +47,12 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintVertical_bias="0.19"/>
     <Button
-            android:text="Сохранить счет в базу даннных"
+            android:text="@string/save_record_in_bd"
             android:layout_width="230dp"
             android:layout_height="77dp" android:id="@+id/savetobd"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/record" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.222"/>
+            app:layout_constraintVertical_bias="0.222"
+        style="@style/MyStyleButton"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

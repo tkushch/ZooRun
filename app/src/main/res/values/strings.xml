@@ -41,6 +41,16 @@
     <string name="hide">Спрятать</string>
     <string name="sound">Звук</string>
     <string name="saved">Сохранено</string>
+    <string name="play">Играть</string>
+    <string name="data_base">База данных</string>
+    <string name="back_str">Назад</string>
+    <string name="your_score">Ваш счет:</string>
+    <string name="car_colour">Цвет машины</string>
+    <string name="save_record_in_bd">Сохранить счет в базу даннных</string>
+    <string name="save">Сохранить</string>
+    <string name="score">Счёт</string>
+    <string name="clear_all">Стереть всё</string>
+    <string name="score1">Счёт:</string>
 
 
 </resources>

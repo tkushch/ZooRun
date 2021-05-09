@@ -32,5 +32,9 @@
     <style name="MyStyleInfoButton">
         <item name="android:background">@drawable/ic_baseline_info_24</item>
     </style>
+    <style name="textStandart">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">25dp</item>
+    </style>
 
 </resources>

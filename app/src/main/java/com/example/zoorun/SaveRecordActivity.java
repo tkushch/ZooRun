@@ -73,7 +73,6 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
 
                 //db on device
                 mDBConnector.insert(nickname, record);
-                editTextName.setText(R.string.saved);
 
                 //Toast
                 int duration = Toast.LENGTH_SHORT;

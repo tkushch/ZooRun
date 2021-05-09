@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+    style="@style/MyStyleBackground"
+    android:layout_height="match_parent">
     <ListView
+        android:padding="5dp"
             android:id="@+id/dblistview"
             android:layout_width="367dp"
             android:layout_height="528dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.060000002"/>
+
     <Button
-            android:text="Назад"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/dblistback"
-            app:layout_constraintTop_toBottomOf="@+id/dblistview"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/dblistview"
-            app:layout_constraintStart_toStartOf="@+id/dblistview" app:layout_constraintHorizontal_bias="0.7"/>
+        android:id="@+id/dblistback"
+        style="@style/MyStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:text="@string/back_str"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dblistview"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/dblistview"
+        app:layout_constraintTop_toBottomOf="@+id/dblistview" />
+
     <Button
-            android:text="Стереть всё"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/dblistclearall"
-            app:layout_constraintStart_toStartOf="@+id/dblistview" app:layout_constraintTop_toBottomOf="@+id/dblistview"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="@+id/dblistview"
-            app:layout_constraintHorizontal_bias="0.3"/>
+        android:id="@+id/dblistclearall"
+        style="@style/MyStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:padding="5dp"
+        android:text="@string/clear_all"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dblistview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dblistview"
+        app:layout_constraintTop_toBottomOf="@+id/dblistview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

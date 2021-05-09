@@ -5,56 +5,108 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SaveRecordActivity">
+        tools:context=".SaveRecordActivity"
+    style="@style/MyStyleBackground">
 
     <EditText
-            android:id="@+id/edit_text_name"
-            android:layout_width="292dp"
-            android:layout_height="47dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        style="@style/textStandart"
+        android:id="@+id/edit_text_name"
+        android:layout_width="298dp"
+        android:layout_height="72dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
-            android:text=" Счёт"
-            android:layout_width="180dp"
-            android:layout_height="25dp" android:id="@+id/textView5"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/tvrecord"
-            app:layout_constraintVertical_bias="1.0"/>
+        android:id="@+id/textView5"
+        style="@style/textStandart"
+        android:layout_width="106dp"
+        android:layout_height="70dp"
+        android:padding="5dp"
+        android:text="@string/score1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/savetobdsaveact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.27" />
+
     <TextView
-            android:layout_width="180dp"
-            android:layout_height="26dp" android:id="@+id/tvrecord"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/edit_text_name" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.82"/>
+        android:id="@+id/tvrecord"
+        style="@style/textStandart"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
-            android:text=" Введите имя"
-            android:layout_width="180dp"
-            android:layout_height="22dp" android:id="@+id/textView7"
-            android:layout_marginBottom="6dp"
-            app:layout_constraintBottom_toTopOf="@+id/edit_text_name" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="1.0"/>
+        android:id="@+id/textView7"
+        style="@style/textStandart"
+        android:layout_width="235dp"
+        android:layout_height="70dp"
+        android:padding="5dp"
+        android:text="Введите имя"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvrecord"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
-            android:text=" Сохранить"
-            android:layout_width="180dp"
-            android:layout_height="48dp" android:id="@+id/savetobdsaveact"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_name" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.41000003"/>
+        android:id="@+id/savetobdsaveact"
+        style="@style/MyStyleButton"
+        android:layout_width="235dp"
+        android:layout_height="70dp"
+        android:text="@string/save"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
     <Button
-            android:text="База данных"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/seebasedatabutton"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="@+id/savetobdsaveact"
-            app:layout_constraintTop_toBottomOf="@+id/savetobdsaveact" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.39"/>
+        android:id="@+id/seebasedatabutton"
+        style="@style/MyStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:padding="5dp"
+        android:text="@string/data_base"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/savetobdsaveact"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savetobdsaveact"
+        app:layout_constraintVertical_bias="0.39" />
+
     <Button
-            android:text="Назад"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/button3back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/savetobdsaveact"
-            app:layout_constraintVertical_bias="0.39" app:layout_constraintHorizontal_bias="0.57"
-            app:layout_constraintStart_toStartOf="@+id/savetobdsaveact"/>
+        android:id="@+id/button3back"
+        style="@style/MyStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:text="@string/back_str"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/savetobdsaveact"
+        app:layout_constraintTop_toBottomOf="@+id/savetobdsaveact"
+        app:layout_constraintVertical_bias="0.39" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
