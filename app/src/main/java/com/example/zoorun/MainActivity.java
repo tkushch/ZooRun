@@ -5,19 +5,30 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.zoorun.interfaces.OnCollisionListener;
 import com.example.zoorun.interfaces.OnScoreListener;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import static android.graphics.Color.rgb;
@@ -97,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         run.setAlpha(0.6f);
         run.setBackgroundColor(rgb(200, 200, 200));
         run.setText(message);
+        run.setTextColor(Color.BLACK);
+        run.setTextSize(getPx(25));
         run.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         run.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
         run.setTextColor(Color.WHITE);
@@ -105,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         back.setAlpha(1f);
 
 
+    }
+
+    public int getPx(int dp) {
+        float scale = getResources().getDisplayMetrics().density;
+        return ((int) (dp * scale + 0.5f));
     }
 
 
@@ -173,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCollision(int score, String param) {
         if (param == "begin") {

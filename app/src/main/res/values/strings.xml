@@ -51,6 +51,7 @@
     <string name="score">Счёт</string>
     <string name="clear_all">Стереть всё</string>
     <string name="score1">Счёт:</string>
+    <string name="regex_score">Счёт: </string>
 
 
 </resources>

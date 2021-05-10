@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
@@ -17,10 +19,10 @@ import com.example.zoorun.fragments.SettingsFragment;
 import com.example.zoorun.interfaces.HidePressedListener;
 
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, HidePressedListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener, HidePressedListener, RadioGroup.OnCheckedChangeListener {
     private Button start_button, info_button, settings_button;
+    private RadioGroup radioGroup;
     private boolean isFragmentOnScreen;
-    private SeekBar seekBar;
     private int level;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -36,16 +38,17 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.start);
         start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(this);
-        seekBar = findViewById(R.id.seekBar_level);
-        seekBar.setOnSeekBarChangeListener(this);
         info_button = findViewById(R.id.info);
         info_button.setOnClickListener(this);
+        radioGroup = findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener(this);
         settings_button = findViewById(R.id.settings_button);
         settings_button.setOnClickListener(this);
         fragmentManager = getSupportFragmentManager();
         isFragmentOnScreen = false;
+
         loadSavedPreferences(); //level, sound, vibration
-        seekBar.setProgress(level);
+
 
 
     }
@@ -102,22 +105,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        level = progress;
-        savePreferences("level", level);
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -193,9 +180,39 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         level = sharedPreferences.getInt("level", 1);
         sound = sharedPreferences.getBoolean("sound", true);
         vibration = sharedPreferences.getBoolean("vibration", true);
+        setRadioGroupCheck();
     }
 
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.rb1:
+                level = 1;
+                break;
+            case R.id.rb2:
+                level = 2;
+                break;
+            case R.id.rb3:
+                level = 3;
+                break;
+        }
+        savePreferences("level", level);
+
+    }
+
+    public void setRadioGroupCheck(){
+        switch (level){
+            case 1:
+                ((RadioButton)findViewById(R.id.rb1)).setChecked(true);
+                break;
+            case 2:
+                ((RadioButton)findViewById(R.id.rb2)).setChecked(true);
+                break;
+            case 3:
+                ((RadioButton)findViewById(R.id.rb3)).setChecked(true);
+        }
+    }
 }
 
 
