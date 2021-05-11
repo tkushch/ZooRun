@@ -139,6 +139,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         isFragmentOnScreen = !isFragmentOnScreen;
         fragmentTransaction.commit();
         fragmentTransaction.addToBackStack(null);
+        hideElements();
 
 
     }
@@ -159,6 +160,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         isFragmentOnScreen = !isFragmentOnScreen;
         fragmentTransaction.commit();
         fragmentTransaction.addToBackStack(null);
+        restoreElements();
     }
 
     protected void savePreferences(String key, boolean value) {
@@ -212,6 +214,19 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case 3:
                 ((RadioButton)findViewById(R.id.rb3)).setChecked(true);
         }
+    }
+
+    public void hideElements(){
+        start_button.setEnabled(false);
+        radioGroup.setEnabled(false);
+        radioGroup.setAlpha(0f);
+
+    }
+
+    public void restoreElements(){
+        start_button.setEnabled(true);
+        radioGroup.setEnabled(true);
+        radioGroup.setAlpha(1f);
     }
 }
 

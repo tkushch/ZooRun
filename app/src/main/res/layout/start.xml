@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layo1"
     style="@style/MyStyleBackground"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13999999"
+        app:srcCompat="@drawable/image1" />
 
     <Button
         android:id="@+id/start_button"
@@ -48,6 +60,7 @@
 
 
     <RadioGroup
+        android:elevation="1dp"
         android:id="@+id/radio_group"
         android:layout_width="222dp"
         android:layout_height="74dp"
@@ -59,21 +72,24 @@
         app:layout_constraintVertical_bias="0.18">
 
         <RadioButton
+            android:layout_margin="5dp"
             android:id="@+id/rb1"
-            android:layout_width="74dp"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
             android:background="#FFFF00"
             android:checked="true" />
 
         <RadioButton
+            android:layout_margin="5dp"
             android:id="@+id/rb2"
-            android:layout_width="74dp"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
             android:background="#e611e4" />
 
         <RadioButton
+            android:layout_margin="5dp"
             android:id="@+id/rb3"
-            android:layout_width="74dp"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
             android:background="#18d827" />
     </RadioGroup>
@@ -95,7 +111,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/settings_button"
