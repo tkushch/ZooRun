@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/start_button"
+        style="@style/MyStyleButton"
         android:layout_width="235dp"
         android:layout_height="70dp"
         android:elevation="1dp"
@@ -16,11 +17,8 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/MyStyleButton"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
             android:gravity="center"
             android:text="@string/car_colour"

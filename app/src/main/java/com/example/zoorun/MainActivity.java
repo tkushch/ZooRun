@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             to_pause_screen(getString(R.string.taptoplay));
         }
         if (v == back) {
-            savescore();
+            saveScore();
             Intent intent = new Intent(this, StartActivity.class);
             startActivity(intent);
         }
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        savescore();
+        saveScore();
         if (!md.isPause() && !md.Was_collision()) {
             to_pause_screen(getString(R.string.taptoplay));
         }
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         et_score.setText(String.valueOf(score));
     }
 
-    public void savescore() {
+    public void saveScore() {
         int score = Integer.parseInt(String.valueOf(et_score.getText()));
         int record = 0;
 

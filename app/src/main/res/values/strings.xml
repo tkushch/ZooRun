@@ -42,7 +42,8 @@
     <string name="sound">Звук</string>
     <string name="saved">Сохранено</string>
     <string name="play">Играть</string>
-    <string name="data_base">База данных</string>
+    <string name="local_data_base">Локальная база данных</string>
+    <string name="firebase_data_base">Сетевая база данных</string>
     <string name="back_str">Назад</string>
     <string name="your_score">Ваш счет:</string>
     <string name="car_colour">Цвет машины</string>

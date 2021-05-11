@@ -1,16 +1,28 @@
 package com.example.zoorun;
 
-import android.content.Context;
 import android.content.Intent;
-import android.view.*;
-import android.widget.*;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zoorun.dataBase.DBRecords;
+import com.example.zoorun.dataBase.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,13 +33,15 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
 
     private TextView tvrecord;
     private EditText editTextName;
-    private Button save, openbd, back, dbClearAll, dbBack;
+    private Button save, openbd, back, dbClearAll, dbBack, openNetBD;
     private ListView mListView;
     private DBRecords mDBConnector;
-    private Context mContext;
     private MyAdapter myAdapter;
-    private DatabaseReference mFireDataBase;
+    private FirebaseDatabase mFireDB;
+    private DatabaseReference myRef;
     private String RECORDS_KEY = "Records";
+    private Boolean isLocalBase = true;
+    private ArrayList<Record> records;
 
 
     @Override
@@ -35,7 +49,6 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_record);
         setAll();
-        mFireDataBase = FirebaseDatabase.getInstance("https://cardriving-519ac-default-rtdb.firebaseio.com/").getReference(RECORDS_KEY);
     }
 
     protected void setAll() {
@@ -47,11 +60,15 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         save.setOnClickListener(this);
         openbd = findViewById(R.id.seebasedatabutton);
         openbd.setOnClickListener(this);
+        openNetBD = findViewById(R.id.firebase_button);
+        openNetBD.setOnClickListener(this);
         back = findViewById(R.id.button3back);
         back.setOnClickListener(this);
-
         mDBConnector = new DBRecords(this);
-        mContext = this;
+
+        mFireDB = FirebaseDatabase.getInstance("https://cardriving-519ac-default-rtdb.firebaseio.com/");
+        myRef = mFireDB.getReference(RECORDS_KEY);
+
     }
 
     @Override
@@ -69,7 +86,7 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
             }
             if (flag) {
                 //db in GoogleFireBase
-                mFireDataBase.push().setValue(new User(nickname, record));
+                myRef.push().setValue(new User(nickname, record));
 
                 //db on device
                 mDBConnector.insert(nickname, record);
@@ -86,6 +103,7 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
             }
         } else if (v == openbd) {
             setContentView(R.layout.dblist);
+            isLocalBase = true;
             dbClearAll = findViewById(R.id.dblistclearall);
             dbBack = findViewById(R.id.dblistback);
             dbClearAll.setOnClickListener(this);
@@ -102,13 +120,64 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
             mListView.setAdapter(myAdapter);
             registerForContextMenu(mListView);
 
+
+        } else if (v == openNetBD) {
+            setContentView(R.layout.dblist);
+            isLocalBase = false;
+            dbClearAll = findViewById(R.id.dblistclearall);
+            dbBack = findViewById(R.id.dblistback);
+            dbClearAll.setOnClickListener(this);
+            dbBack.setOnClickListener(this);
+            records = new ArrayList<>();
+            Collections.sort(records, new Comparator<Record>() {
+                @Override
+                public int compare(Record o1, Record o2) {
+                    return -o1.compareTo(o2);
+                }
+            });
+            myAdapter = new MyAdapter(this, records);
+            mListView = findViewById(R.id.dblistview);
+            mListView.setAdapter(myAdapter);
+            registerForContextMenu(mListView);
+            ValueEventListener valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (records.size() > 0) records.clear();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        User user = ds.getValue(User.class);
+                        String id = ds.getKey();
+                        assert user != null;
+                        Record record = new Record((long) id.hashCode(), id, user.getName(), user.getValue());
+                        records.add(record);
+                    }
+                    Collections.sort(records, new Comparator<Record>() {
+                        @Override
+                        public int compare(Record o1, Record o2) {
+                            return -o1.compareTo(o2);
+                        }
+                    });
+                    myAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+            myRef.addValueEventListener(valueEventListener);
+
         } else if (v == back) {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("score", record);
             startActivity(intent);
         } else if (v == dbClearAll) {
-            mDBConnector.deleteAll();
-            updateList();
+            if (isLocalBase) {
+                mDBConnector.deleteAll();
+                updateList();
+            } else {
+                myRef.removeValue();
+            }
+
         } else if (v == dbBack) {
             setContentView(R.layout.activity_save_record);
             setAll();
@@ -122,14 +191,27 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         inflater.inflate(R.menu.context_menu_bd, menu);
     }
 
+
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.bdmenudeleteitem:
-                mDBConnector.delete(info.id);
-                updateList();
+                if (isLocalBase) {
+                    mDBConnector.delete(info.id);
+                    updateList();
+                }
+                else{
+                    for (Record record: records){
+                        if (record.getId() == info.id){
+                            myRef.child(record.getStrId()).removeValue();
+                            break;
+                        }
+                    }
+                }
                 return true;
+
             default:
                 return super.onContextItemSelected(item);
         }
@@ -147,29 +229,4 @@ public class SaveRecordActivity extends AppCompatActivity implements View.OnClic
         myAdapter.notifyDataSetChanged();
     }
 
-    public class User {
-        private String name;
-        private int value;
-
-        public User(String name, int value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-    }
 }
