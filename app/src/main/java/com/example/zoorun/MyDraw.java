@@ -31,7 +31,7 @@ public class MyDraw extends View {
     private Hero hero;
     private Ground ground;
     private Barrier[] barriers;
-    private int barrier_delay = 0;
+    private int barrier_delay = 0, end_delay;
     private Coin[] coins;
     private int coin_delay = 0;
     private Bitmap coin_image = BitmapFactory.decodeResource(getResources(), R.drawable.coin1);
@@ -158,6 +158,7 @@ public class MyDraw extends View {
         hero = new Hero(hero_image, canvas);
         barriers = new Barrier[100];
         coins = new Coin[500];
+        end_delay = (int) (70 * (1f / LEVEL) / 200) + 10;
 
     }
 
@@ -220,14 +221,15 @@ public class MyDraw extends View {
     }
 
     public void generate_barriers() {
-        if (barrier_delay < 70 * (1f / LEVEL) / 200) {
+        if (barrier_delay < end_delay) {
             barrier_delay++;
-            //избегаем наложения монет на препятствия
-            if (barrier_delay > 10 * (1f / LEVEL / 200) && barrier_delay < 60 * (1f / LEVEL / 200)) {
-                need_coin = true;
-            } else {
-                need_coin = false;
-            }
+            need_coin = true;
+//            //избегаем наложения монет на препятствия
+//            if (barrier_delay > 10 * (1f / LEVEL / 200) && barrier_delay < 60 * (1f / LEVEL / 200)) {
+//                need_coin = true;
+//            } else {
+//                need_coin = false;
+//            }
         } else {
             need_coin = false;
             barrier_delay = 0;
@@ -265,10 +267,8 @@ public class MyDraw extends View {
     }
 
     public void generate_coins() {
-        if (coin_delay < 35) {
-            coin_delay++;
-        } else {
-            coin_delay = 0;
+        if (barrier_delay == end_delay - 20) {
+//            coin_delay = 0;
             int w1 = rand_0_3();
             //int w2 = rand_0_3();
             //while (w2 == w1) {
@@ -282,7 +282,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    coins[i] = new Coin(coin_image, w1, LEVEL);
+                    coins[i] = new Coin(coin_image, w1, LEVEL, canvas);
                     break;
                 }
             }

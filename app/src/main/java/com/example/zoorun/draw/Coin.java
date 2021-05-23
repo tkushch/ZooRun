@@ -17,7 +17,7 @@ public class Coin implements Movable, Drawable {
     private Bitmap image;
 
 
-    public Coin(Bitmap image, int way, float level) {
+    public Coin(Bitmap image, int way, float level, Canvas canvas) {
         this.way = way;
         x = 500f;
         y = -1500f / 7f;

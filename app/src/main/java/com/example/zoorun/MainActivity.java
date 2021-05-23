@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         volume = (float) (1 - (Math.log(100 - 55) / Math.log(100))); //max volume - curr volume
         collision_sound = MediaPlayer.create(this, R.raw.explosion);
         collision_sound.setVolume(volume, volume);
-        money_sound = MediaPlayer.create(this, R.raw.eat);
+        money_sound = MediaPlayer.create(this, R.raw.eat2);
         money_sound.setVolume(volume, volume);
 
 
