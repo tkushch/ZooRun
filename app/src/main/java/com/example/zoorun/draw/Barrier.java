@@ -1,9 +1,6 @@
 package com.example.zoorun.draw;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.*;
 import com.example.zoorun.interfaces.Drawable;
 import com.example.zoorun.interfaces.Movable;
 
@@ -20,15 +17,13 @@ public class Barrier implements Movable, Drawable {
     private float radius_x, radius_y;
 
 
-    public Barrier(Canvas canvas, Bitmap yourBitmap, int way, float level) {
+    public Barrier(Bitmap yourBitmap, int way, float level, float RX, float RY) {
         image_fist = yourBitmap;
-
-//        w = (int) (yourBitmap.getWidth() * (canvas.getWidth() / 6000f));
-        w = (int) (yourBitmap.getWidth() * (canvas.getWidth() / 200000f));
+        w = 2;
         h = (int) (0.6f * w);
         image = Bitmap.createScaledBitmap(yourBitmap, w, h, true);
-        RX = canvas.getWidth() / 1000f;
-        RY = canvas.getHeight() / 1000f;
+        this.RX = RX;
+        this.RY = RY;
         radius_x = w / 2f / RX;
         radius_y = h / 2f / RY;
 
@@ -56,7 +51,6 @@ public class Barrier implements Movable, Drawable {
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.WHITE);
         canvas.drawBitmap(image, RX * (x - radius_x), RY * (y - radius_y), paint);
-
 //        canvas.drawCircle(x * RX, y * RY, radius * RX, paint);
     }
 
@@ -73,8 +67,8 @@ public class Barrier implements Movable, Drawable {
             w += 1;
             h = (int) (0.6f * w);
             if (w % 2 == 0) image = Bitmap.createScaledBitmap(image_fist, w, h, true);
-            radius_x = image.getWidth() / 2f / RX;
-            radius_y = image.getHeight() / 2f / RY;
+            radius_x = w / 2f / RX;
+            radius_y = h / 2f / RY;
 //
         } else {
             relevance = false;

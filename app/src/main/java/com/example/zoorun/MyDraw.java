@@ -246,7 +246,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    barriers[i] = new Barrier(canvas, barrier_image, w1, LEVEL);
+                    barriers[i] = new Barrier(barrier_image, w1, LEVEL, RX, RY);
                     break;
                 }
             }
@@ -258,7 +258,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    barriers[i] = new Barrier(canvas, barrier_image, w2, LEVEL);
+                    barriers[i] = new Barrier(barrier_image, w2, LEVEL, RX, RY);
                     break;
                 }
             }
@@ -282,7 +282,7 @@ public class MyDraw extends View {
                     flag = true;
                 }
                 if (flag) {
-                    coins[i] = new Coin(coin_image, w1, LEVEL, canvas);
+                    coins[i] = new Coin(coin_image, w1, LEVEL);
                     break;
                 }
             }

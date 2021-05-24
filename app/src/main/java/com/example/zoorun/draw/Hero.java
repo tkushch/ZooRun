@@ -35,7 +35,7 @@ public class Hero implements Drawable {
 
 
     public Hero(Bitmap yourImage, Canvas canvas) {
-        swipe_v = 0.5f * 10 * 1000f;
+        swipe_v = 0.5f * 10 * 100f;
         this.canvas = canvas;
         w = (int) (yourImage.getWidth() * (canvas.getWidth() / 5400f));
         h = (int) (1.8f * w);
