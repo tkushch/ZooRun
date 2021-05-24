@@ -15,6 +15,7 @@ public class Coin implements Movable, Drawable {
     private float RIGHT_LINE_TANGENS = -LEFT_LINE_TANGENS;
     private boolean relevance = false;
     private Bitmap image;
+    private int w, h;
 
 
     public Coin(Bitmap image, int way, float level, Canvas canvas) {
@@ -36,6 +37,8 @@ public class Coin implements Movable, Drawable {
         }
         image = Bitmap.createScaledBitmap(image, (int) (image.getWidth() * 0.07), (int) (image.getHeight() * 0.07), true);
         this.image = image;
+        w = image.getWidth();
+        h = image.getHeight();
         relevance = true;
     }
 
@@ -43,7 +46,7 @@ public class Coin implements Movable, Drawable {
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.YELLOW);
 //        canvas.drawCircle(x * RX, y * RY, radius * RX, paint);
-        canvas.drawBitmap(image, RX * x - (image.getWidth() / 2.0f), RY * y - (image.getHeight() / 2.0f), paint);
+        canvas.drawBitmap(image, RX * x - w / 2, RY * y - h / 2, paint);
 
     }
 

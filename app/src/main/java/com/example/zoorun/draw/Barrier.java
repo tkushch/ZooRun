@@ -69,15 +69,13 @@ public class Barrier implements Movable, Drawable {
                 dx *= 1.0035f;
                 dy *= 1.0035f;
             }
-            ///масштабирование
+//            масштабирование
             w += 1;
             h = (int) (0.6f * w);
-            image = Bitmap.createScaledBitmap(image_fist, w, h, true);
-//            w = (int) (image.getWidth() + (image.getWidth() / 6000f));
-
+            if (w % 2 == 0) image = Bitmap.createScaledBitmap(image_fist, w, h, true);
             radius_x = image.getWidth() / 2f / RX;
             radius_y = image.getHeight() / 2f / RY;
-            ///
+//
         } else {
             relevance = false;
         }
