@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +27,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private InfoFragment fragmentInfo;
     private boolean sound = true;
     private boolean vibration = true;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +44,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         settings_button.setOnClickListener(this);
         fragmentManager = getSupportFragmentManager();
         isFragmentOnScreen = false;
+        imageView = findViewById(R.id.imageView2);
 
         loadSavedPreferences(); //level, sound, vibration
-
 
 
     }
@@ -203,30 +201,31 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void setRadioGroupCheck(){
-        switch (level){
+    public void setRadioGroupCheck() {
+        switch (level) {
             case 1:
-                ((RadioButton)findViewById(R.id.rb1)).setChecked(true);
+                ((RadioButton) findViewById(R.id.rb1)).setChecked(true);
                 break;
             case 2:
-                ((RadioButton)findViewById(R.id.rb2)).setChecked(true);
+                ((RadioButton) findViewById(R.id.rb2)).setChecked(true);
                 break;
             case 3:
-                ((RadioButton)findViewById(R.id.rb3)).setChecked(true);
+                ((RadioButton) findViewById(R.id.rb3)).setChecked(true);
         }
     }
 
-    public void hideElements(){
+    public void hideElements() {
         start_button.setEnabled(false);
         radioGroup.setEnabled(false);
         radioGroup.setAlpha(0f);
-
+        imageView.setAlpha(0f);
     }
 
-    public void restoreElements(){
+    public void restoreElements() {
         start_button.setEnabled(true);
         radioGroup.setEnabled(true);
         radioGroup.setAlpha(1f);
+        imageView.setAlpha(1f);
     }
 }
 

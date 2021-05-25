@@ -1,6 +1,7 @@
 package com.example.zoorun.draw;
 
 import android.graphics.*;
+import com.example.zoorun.R;
 import com.example.zoorun.interfaces.Drawable;
 import com.example.zoorun.interfaces.Movable;
 
@@ -13,19 +14,22 @@ public class Barrier implements Movable, Drawable {
     private float RIGHT_LINE_TANGENS = -LEFT_LINE_TANGENS;
     private boolean relevance = false;
     private Bitmap image, image_fist;
+    private int imgWidth, imgHeight;
     private int w, h;
-    private float radius_x, radius_y;
+    private float radius_x, radius_y, kW, kH;
 
 
     public Barrier(Bitmap yourBitmap, int way, float level, float RX, float RY) {
         image_fist = yourBitmap;
-        w = 2;
-        h = (int) (0.6f * w);
-        image = Bitmap.createScaledBitmap(yourBitmap, w, h, true);
+        imgWidth = yourBitmap.getWidth();
+        imgHeight = yourBitmap.getHeight();
+        kW = RX / 54;
+        kH = kW / 2;
+
         this.RX = RX;
         this.RY = RY;
-        radius_x = w / 2f / RX;
-        radius_y = h / 2f / RY;
+        radius_x = imgWidth * kW / 2;
+        radius_y = imgHeight * kH / 2;
 
 
         this.way = way;
@@ -50,8 +54,11 @@ public class Barrier implements Movable, Drawable {
     @Override
     public void draw(Canvas canvas, Paint paint, float RX, float RY) {
         paint.setColor(Color.WHITE);
-        canvas.drawBitmap(image, RX * (x - radius_x), RY * (y - radius_y), paint);
-//        canvas.drawCircle(x * RX, y * RY, radius * RX, paint);
+        Matrix matrix = new Matrix();
+        matrix.setScale(kW, kH);
+        matrix.postTranslate(RX * x - radius_x, RY * y - radius_y);
+        paint.setAlpha(255);
+        canvas.drawBitmap(image_fist, matrix, paint);
     }
 
     @Override
@@ -64,11 +71,10 @@ public class Barrier implements Movable, Drawable {
                 dy *= 1.0035f;
             }
 //            масштабирование
-            w += 1;
-            h = (int) (0.6f * w);
-            if (w % 2 == 0) image = Bitmap.createScaledBitmap(image_fist, w, h, true);
-            radius_x = w / 2f / RX;
-            radius_y = h / 2f / RY;
+            kW += 0.001f;
+            kH += 0.001f;
+            radius_x = imgWidth * kW / 2;
+            radius_y = imgHeight * kH / 2;
 //
         } else {
             relevance = false;
@@ -84,7 +90,7 @@ public class Barrier implements Movable, Drawable {
     }
 
     public float getRadius() {
-        return radius_y;
+        return radius_y / RY;
     }
 
     public int getWay() {
